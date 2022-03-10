@@ -47,7 +47,11 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            doMySearch(query);
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    SuggestionProvider.AUTHORITRY, SuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
+
+//            doMySearch(query);
         }
     }
 
