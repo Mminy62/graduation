@@ -28,6 +28,13 @@
                 <!-- //최상위 어플리케이션으로 표시해야함을 알리는 것 -->
             </intent-filter>
         </activity>
+        <activity android:name=".SearchActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".PopupActivity"
             android:screenOrientation="fullSensor"
