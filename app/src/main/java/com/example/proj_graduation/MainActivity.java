@@ -191,13 +191,13 @@ public class MainActivity extends AppCompatActivity
         mLayout = findViewById(R.id.layout_main);
 
         // 첫번째 마커
-        markers[0] = new Location("point A"); //탐탐카페 앞에
-        markers[0].setLatitude(37.623475);
-        markers[0].setLongitude(127.077729);
+        markers[0] = new Location("point A"); //
+        markers[0].setLatitude(37.622553);
+        markers[0].setLongitude(126.97225471388262);
         // 두번째 마커
         markers[1] = new Location("point B"); //롯데리아 앞에
-        markers[1].setLatitude(37.623112);
-        markers[1].setLongitude(127.07777);
+        markers[1].setLatitude(37.29874641811216);
+        markers[1].setLongitude(126.9724532605996);
         // 세번째 마커
         markers[2] = new Location("point C");
         markers[2].setLatitude(37.622759);
@@ -205,8 +205,8 @@ public class MainActivity extends AppCompatActivity
 
         // 로고 위치
         logoLocation = new Location("BOF LOGO");
-        logoLocation.setLatitude(37.622553);
-        logoLocation.setLongitude(127.077844);
+        logoLocation.setLatitude(37.298656863722265);
+        logoLocation.setLongitude(126.97225471388262);
 
         handLocation[0] = new Location("point A"); //탐탐카페 앞에
         handLocation[0].setLatitude(37.623475);
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity
         mSensorManager.unregisterListener(this, mAccelerometer);
         mSensorManager.unregisterListener(this, mMagnetometer);
 
-        gameSystem.currentMediaPlayer.pause();//앱 나가면 꺼지는 것
+//        gameSystem.currentMediaPlayer.pause();
     }
 
 
