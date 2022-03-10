@@ -22,9 +22,12 @@
             <androidx.appcompat.widget.SearchView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/search_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/search_hint"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
