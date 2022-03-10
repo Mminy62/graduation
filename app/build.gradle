@@ -61,6 +61,8 @@ task wrapper(type: Wrapper) {
 
 apply plugin: 'com.google.ar.sceneform.plugin'
 
+tasks.register("prepareKotlinBuildScriptModel")
+
 
 /* sceneform.asset('sampledata/music_note/greenote.obj', // 'Source Asset Path' specified during import.
         'default',                            // 'Material Path' specified during import.
