@@ -9,6 +9,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,16 +22,9 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        ImageButton musicnote_btn = (ImageButton) findViewById(R.id.musicnote_btn);
+        Button intro_btn = (Button) findViewById(R.id.intro_btn);
         TextView bof_text = (TextView)findViewById(R.id.textView);
-        TextView musicBtnText = (TextView)findViewById(R.id.musicnote_btn_text);
         int color = getResources().getColor(R.color.colorDefault);
-
-
-        SpannableStringBuilder spannable = new SpannableStringBuilder("#두근두근_행사장_가는_길\nAR 음악노트");
-        spannable.setSpan(new AbsoluteSizeSpan(45),0, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new AbsoluteSizeSpan(70),15, 22, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        musicBtnText.setText(spannable, TextView.BufferType.EDITABLE);
 
         SpannableStringBuilder spannable2 = new SpannableStringBuilder("AR로 즐기는\n드라마 촬영장소");
         spannable2.setSpan(new StyleSpan(Typeface.BOLD),0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // AR
@@ -39,7 +33,7 @@ public class IntroActivity extends AppCompatActivity {
         spannable2.setSpan(new ForegroundColorSpan(color),8, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         bof_text.setText(spannable2, TextView.BufferType.EDITABLE);
 
-        musicnote_btn.setOnClickListener(new View.OnClickListener(){
+        intro_btn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
