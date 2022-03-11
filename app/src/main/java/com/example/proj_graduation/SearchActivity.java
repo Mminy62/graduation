@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity {
     public static com.example.proj_graduation.SearchActivity sa;
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +32,28 @@ public class SearchActivity extends AppCompatActivity {
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) findViewById(R.id.search_view);
-        ListView listView = (ListView) findViewById(R.id.list_view);
+        listView = (ListView) findViewById(R.id.list_view);
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                // 검색 버튼 누를 때 호출
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                // 검색창에서 글자가 변경이 일어날 때마다 호출
+//                return true;
+//            }
+//        });
 
-                // 검색 버튼 누를 때 호출
-                return true;
-            }
+        configureList();
+        configureIntent();
+    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                // 검색창에서 글자가 변경이 일어날 때마다 호출
-                return true;
-            }
-        });
-
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
-                    SuggestionProvider.AUTHORITRY, SuggestionProvider.MODE);
-            suggestions.saveRecentQuery(query, null);
-
-            doMySearch(query);
-        }
-
+    private void configureList() {
         list = new ArrayList<>();
         list.add("그 해 우리는");
         list.add("오징어 게임");
@@ -71,8 +65,18 @@ public class SearchActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    public void doMySearch(String query) {
+    private void configureIntent() {
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    SuggestionProvider.AUTHORITRY, SuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
+            doMySearch(query);
+        }
+    }
 
+    public void doMySearch(String query) {
         if (list.contains(query)) {
             adapter.getFilter().filter(query);
         } else {
