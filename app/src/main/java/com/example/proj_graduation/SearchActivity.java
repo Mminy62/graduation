@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SearchRecentSuggestionsProvider;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,13 +17,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchActivity extends AppCompatActivity {
     public static com.example.proj_graduation.SearchActivity sa;
-    ArrayList<String> list;
-    ArrayAdapter<String> adapter;
+    ArraySet<ListViewItem> list;
+    ListViewAdapter adapter;
     ListView listView;
 
     @Override
@@ -54,14 +59,25 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void configureList() {
-        list = new ArrayList<>();
-        list.add("그 해 우리는");
-        list.add("오징어 게임");
-        list.add("도깨비");
-        list.add("사랑의 볼시착");
-        list.add("이태원 클라스");
+        list = new ArraySet<ListViewItem>();
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                "그 해 우리는",
+                "설명"));
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                "오징어 게임",
+                "설명"));
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                "도깨비",
+                "설명"));
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                "사랑의 불시착",
+                "설명"));
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                "이태원 클라스",
+                "설명"));
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        adapter = new ListViewAdapter(); //(this, android.R.layout.simple_list_item_1, list);
+        adapter.addItems(list);
         listView.setAdapter(adapter);
     }
 
@@ -77,10 +93,17 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void doMySearch(String query) {
-        if (list.contains(query)) {
-            adapter.getFilter().filter(query);
-        } else {
-            Toast.makeText(SearchActivity.this, "No Match", Toast.LENGTH_SHORT).show();
-        }
+//        List<String> result = list.stream()
+//                .filter(str -> str.trim().contains(query))
+//                .collect(Collectors.toList());
+
+//        if (adapter.isEmpty()) {
+//            Toast.makeText(SearchActivity.this, "No Match", Toast.LENGTH_SHORT).show();
+//        } else {
+//            for (String res: result) {
+//                adapter.getFilter().filter(res);
+////                adapter.in
+//            }
+//        }
     }
 }
