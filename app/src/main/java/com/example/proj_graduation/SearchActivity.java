@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.ArraySet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,17 @@ public class SearchActivity extends AppCompatActivity {
     ArraySet<ListViewItem> list;
     ListViewAdapter adapter;
     ListView listView;
+
+    private AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
+            Toast.makeText(getApplicationContext(), lv.getTitle(), Toast.LENGTH_SHORT).show();
+            lv.getTitle();
+        }
+
+        ;
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +93,7 @@ public class SearchActivity extends AppCompatActivity {
         adapter = new ListViewAdapter(); //(this, android.R.layout.simple_list_item_1, list);
         adapter.addItems(list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(itemClickListener);
     }
 
     private void configureIntent() {
