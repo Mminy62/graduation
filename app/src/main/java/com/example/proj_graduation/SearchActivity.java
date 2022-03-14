@@ -39,6 +39,9 @@ public class SearchActivity extends AppCompatActivity {
             ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
             Toast.makeText(getApplicationContext(), lv.getTitle(), Toast.LENGTH_SHORT).show();
             lv.getTitle();
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivityForResult(intent,1);
         }
 
         ;
