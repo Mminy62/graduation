@@ -24,8 +24,8 @@ public class SearchActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), lv.getTitle(), Toast.LENGTH_SHORT).show();
         lv.getTitle();
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(getApplicationContext(), SearchDetailActivity.class);
+        startActivity(intent);
     };
 
     @Override
