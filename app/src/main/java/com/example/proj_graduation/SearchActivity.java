@@ -45,19 +45,19 @@ public class SearchActivity extends AppCompatActivity {
 
     private void configureList() {
         list = new ArraySet<ListViewItem>();
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ourbelovedsummer),
                 "그 해 우리는",
                 "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.squidgame),
                 "오징어 게임",
                 "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
-                "도깨비",
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.weatherpeople),
+                "기상청 사람들",
                 "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.crashlandingonlove),
                 "사랑의 불시착",
                 "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.itaewonclass),
                 "이태원 클라스",
                 "설명"));
 
