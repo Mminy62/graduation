@@ -19,6 +19,7 @@ public class SearchActivity extends AppCompatActivity {
     ListViewAdapter adapter;
     ListView listView;
 
+
     private AdapterView.OnItemClickListener itemClickListener = (adapterView, view, i, l) -> {
         ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
         Toast.makeText(getApplicationContext(), lv.getTitle(), Toast.LENGTH_SHORT).show();

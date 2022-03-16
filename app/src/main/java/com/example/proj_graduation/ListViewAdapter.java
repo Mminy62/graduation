@@ -12,15 +12,14 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.proj_graduation.ListViewItem;
 
 import java.util.ArrayList;
 
 public class ListViewAdapter extends BaseAdapter implements Filterable {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList. (원본 데이터 리스트)
-    private ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
+    private final ArrayList<ListViewItem> listViewItemList = new ArrayList<ListViewItem>() ;
     // 필터링된 결과 데이터를 저장하기 위한 ArrayList. 최초에는 전체 리스트 보유.
-    private ArrayList<ListViewItem> filteredItemList = listViewItemList ;
+    private final ArrayList<ListViewItem> filteredItemList = listViewItemList ;
 
     Filter listFilter ;
 

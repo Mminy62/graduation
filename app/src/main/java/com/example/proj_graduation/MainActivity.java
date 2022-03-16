@@ -120,45 +120,7 @@ public class MainActivity extends AppCompatActivity
     private float mCurrentRoll = 0f; // 롤
     Context context;
 
-    // 음악 노트
-    private int[] timerArray =
-            {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000,
-            11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000,
-            21000, 22000, 23000, 24000, 25000, 26000, 27000, 28000, 29000, 30000,
-            31000, 32000, 33000, 34000, 35000, 36000, 37000, 38000, 39000, 40000,
-            41000, 42000, 43000, 44000, 45000, 46000, 47000, 48000, 49000, 50000,
-            51000, 52000, 53000, 54000, 55000, 56000, 57000, 58000, 59000, 60000};
 
-    // UI
-    private TextView musicTitle;
-    private TextView scoreText;
-    private ImageView play;
-    private ProgressBar musicBar;
-    private MusicUi musicUiclass;
-    private ScalableLayout musicUi;
-    private ImageView album;
-    //gamenote_UI -- 이민영
-
-    private ImageView lineImage01;
-    private ImageView lineImage02;
-    private ImageView tapButton01;
-    private ImageView tapButton02;
-    private ImageView tapButton03;
-    private int mActivePointerId;
-    private ImageView getTapButton01;
-    private ImageView getTapButton02;
-    private ImageView getTapButton03;
-    private ImageView background01;
-    private ImageView background02;
-    private ImageView background03;
-
-
-  //  private ImageView[]background = {(ImageView)findViewById(R.id.backgraoud01), (ImageView)findViewById(R.id.backgraoud02), (ImageView)findViewById(R.id.backgraoud03)};
-
-    private TextView scoreBar;
-
-    // 게임 관련
-    private GameSystem gameSystem;
  //   private PointHand pointHand;
     public static com.example.proj_graduation.MainActivity ma;
 
@@ -192,33 +154,22 @@ public class MainActivity extends AppCompatActivity
 
         // 첫번째 마커
         markers[0] = new Location("point A"); //
-        markers[0].setLatitude(37.622553);
-        markers[0].setLongitude(126.97225471388262);
+        markers[0].setLatitude(37.298543);
+        markers[0].setLongitude(126.972288);
         // 두번째 마커
-        markers[1] = new Location("point B"); //롯데리아 앞에
-        markers[1].setLatitude(37.29874641811216);
-        markers[1].setLongitude(126.9724532605996);
+        markers[1] = new Location("point B");
+        markers[1].setLatitude(37.298623);
+        markers[1].setLongitude(126.972376);
+
         // 세번째 마커
         markers[2] = new Location("point C");
-        markers[2].setLatitude(37.622759);
-        markers[2].setLongitude(127.077827);
+        markers[2].setLatitude(37.298810);
+        markers[2].setLongitude(126.972528);
 
         // 로고 위치
-        logoLocation = new Location("BOF LOGO");
-        logoLocation.setLatitude(37.298656863722265);
-        logoLocation.setLongitude(126.97225471388262);
-
-        handLocation[0] = new Location("point A"); //탐탐카페 앞에
-        handLocation[0].setLatitude(37.623475);
-        handLocation[0].setLongitude(127.077729);
-        // 두번째 마커
-        handLocation[1] = new Location("point B"); //롯데리아 앞에
-        handLocation[1].setLatitude(37.623112);
-        handLocation[1].setLongitude(127.07777);
-
-
-
-
+        logoLocation = new Location("Jng-ang highscool");
+        logoLocation.setLatitude(37.299034);
+        logoLocation.setLongitude(126.972738);
 
    /*     int colorWhite = context.getResources().getColor(R.color.colorWhite);
         String scoreString = scoreText.toString();
@@ -241,19 +192,6 @@ public class MainActivity extends AppCompatActivity
         addContentView(ll, paramll);
 
 
-        // 게임 ui 관련
-        // 레이아웃을 위에 겹쳐서 올리는 부분
-        LayoutInflater ginflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // 레이아웃 객체 생성
-        LinearLayout gll = (LinearLayout) ginflater.inflate(R.layout.game_ui, null);
-        // 레이아웃 배경 투명도 주기
-        gll.setBackgroundColor(Color.parseColor("#00000000"));
-        // 레이아웃 위에 겹치기
-        LinearLayout.LayoutParams gparamll = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        addContentView(gll, gparamll);
-
         // '위치를 찾는 중' 팝업창 오버레이
         popupLayout = (FrameLayout)inflater.inflate(R.layout.activity_popup, null);
         popupLayout.setBackgroundColor(Color.parseColor("#CC000000"));
@@ -262,59 +200,6 @@ public class MainActivity extends AppCompatActivity
         );
         addContentView(popupLayout, popParams);
 
-        //게임시스템--이민영
-        lineImage01 = (ImageView)findViewById(R.id.line01);
-        lineImage02 = (ImageView)findViewById(R.id.line02);
-        tapButton01 = (ImageView)findViewById(R.id.tapbutton01);
-        tapButton02 = (ImageView)findViewById(R.id.tapbutton02);
-        tapButton03 = (ImageView)findViewById(R.id.tapbutton03);
-        getTapButton01 = (ImageView)findViewById(R.id.gettapbutton01);
-        getTapButton02 = (ImageView)findViewById(R.id.gettapbutton02);
-        getTapButton03 = (ImageView)findViewById(R.id.gettapbutton03);
-        background01 = (ImageView)findViewById(R.id.backgraoud01);
-        background02 = (ImageView)findViewById(R.id.backgraoud02);
-        background03 = (ImageView)findViewById(R.id.backgraoud03);
-
-
-        lineImage01.setVisibility(View.INVISIBLE);
-        lineImage02.setVisibility(View.INVISIBLE);
-        tapButton01.setVisibility(View.INVISIBLE);
-        tapButton02.setVisibility(View.INVISIBLE);
-        tapButton03.setVisibility(View.INVISIBLE);
-        getTapButton01.setVisibility(View.INVISIBLE);
-        getTapButton02.setVisibility(View.INVISIBLE);
-        getTapButton03.setVisibility(View.INVISIBLE);
-        background01.setVisibility(View.INVISIBLE);
-        background02.setVisibility(View.INVISIBLE);
-        background03.setVisibility(View.INVISIBLE);
-
-
-
-        // 음악 관련 세팅
-        musicUi = (ScalableLayout) findViewById(R.id.musicUi);
-
-        musicTitle = (TextView) findViewById(R.id.musicTitle);
-        play = (ImageView) findViewById(R.id.play);
-        play.setImageResource(android.R.drawable.ic_media_pause);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (musicUiclass.getCurrentMediaPlayer().isPlaying()) { // 음악이 재생되고 있을 때 => 음악을 멈춰야함
-                    musicUiclass.musicPause();
-                } else { // 음악이 멈춰있을 때 => 음악을 재생해야함
-                    musicUiclass.musicPlay();
-                }
-            }
-        });
-        musicBar = (ProgressBar) findViewById(R.id.musicBar);
-       // album = (ImageView) findViewById(R.id.album);
-       // musicUiclass = new MusicUi(this, this, musicBar, musicTitle, play, album);
-
-        musicUiclass = new MusicUi(this, this, musicBar, musicTitle, play);
-
-
-        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
-        effectSoundID = soundPool.load(getApplicationContext(),R.raw.effect_sound_03, 1);
 
         // 지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
@@ -362,15 +247,6 @@ public class MainActivity extends AppCompatActivity
 
     private void setUpModel() {
 
-        ModelRenderable.builder()
-                .setSource(this, R.raw.boflogo)
-                .build().thenAccept(renderable -> bofLogoRenderable = renderable)
-                .exceptionally(
-                        throwable -> {
-                            Toast.makeText(this, "Unable to load bof logo model", Toast.LENGTH_SHORT).show();
-                            return null;
-                        }
-                );
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.hand)
@@ -383,8 +259,8 @@ public class MainActivity extends AppCompatActivity
                 );
 
         ModelRenderable.builder()
-                .setSource(this, R.raw.bluenote)
-                .build().thenAccept(renderable -> musicNotes[0] = renderable)
+                .setSource(this, R.raw.ourbeloved_1)
+                .build().thenAccept(renderable -> albumRenderable[0] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load orange note model", Toast.LENGTH_SHORT).show();
@@ -393,8 +269,8 @@ public class MainActivity extends AppCompatActivity
                 );
 
         ModelRenderable.builder()
-                .setSource(this, R.raw.red_note)
-                .build().thenAccept(renderable -> musicNotes[1] = renderable)
+                .setSource(this, R.raw.ourbeloved_2)
+                .build().thenAccept(renderable -> albumRenderable[1] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load red note model", Toast.LENGTH_SHORT).show();
@@ -403,8 +279,8 @@ public class MainActivity extends AppCompatActivity
                 );
 
         ModelRenderable.builder()
-                .setSource(this, R.raw.redvelvet_album)
-                .build().thenAccept(renderable -> albumRenderable[0] = renderable)
+                .setSource(this, R.raw.ourbeloved_3)
+                .build().thenAccept(renderable -> albumRenderable[2] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 1 model", Toast.LENGTH_SHORT).show();
@@ -414,19 +290,19 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        ModelRenderable.builder()
-                .setSource(this, R.raw.exo_album)
-                .build().thenAccept(renderable -> albumRenderable[1] = renderable)
+     /*   ModelRenderable.builder()
+                .setSource(this, R.raw.ourbeloved_4)
+                .build().thenAccept(renderable -> albumRenderable[4] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 2 model", Toast.LENGTH_SHORT).show();
                             return null;
                         }
                 );
-
+*/
         ModelRenderable.builder()
-                .setSource(this, R.raw.nct_model)
-                .build().thenAccept(renderable -> albumRenderable[2] = renderable)
+                .setSource(this, R.raw.highschool)
+                .build().thenAccept(renderable -> bofLogoRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 3 model", Toast.LENGTH_SHORT).show();
@@ -444,7 +320,7 @@ public class MainActivity extends AppCompatActivity
         marker1.setPosition(new LatLng(markers[0].getLatitude(), markers[0].getLongitude()));
         marker1.setHeight(70);
         marker1.setWidth(60);
-        marker1.setIcon(OverlayImage.fromResource(R.drawable.redlogo));
+        marker1.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
         marker1.setAnchor(new PointF(0.5f, 1));
         marker1.setMap(naverMap);
 
@@ -452,7 +328,7 @@ public class MainActivity extends AppCompatActivity
         marker2.setPosition(new LatLng(markers[1].getLatitude(), markers[1].getLongitude()));
         marker2.setHeight(70);
         marker2.setWidth(60);
-        marker2.setIcon(OverlayImage.fromResource(R.drawable.exologo));
+        marker2.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
         marker2.setAnchor(new PointF(0.5f, 1));
         marker2.setMap(naverMap);
 
@@ -460,7 +336,7 @@ public class MainActivity extends AppCompatActivity
         marker3.setPosition(new LatLng(markers[2].getLatitude(), markers[2].getLongitude()));
         marker3.setHeight(70);
         marker3.setWidth(60);
-        marker3.setIcon(OverlayImage.fromResource(R.drawable.nctlogo));
+        marker3.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
         marker3.setAnchor(new PointF(0.5f, 1));
         marker3.setMap(naverMap);
 
@@ -468,7 +344,7 @@ public class MainActivity extends AppCompatActivity
         logo.setPosition(new LatLng(logoLocation.getLatitude(), logoLocation.getLongitude()));
         logo.setHeight(60);
         logo.setWidth(70);
-        logo.setIcon(OverlayImage.fromResource(R.drawable.boflogo));
+        logo.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
         logo.setAnchor(new PointF(0.5f, 0.5f));
         logo.setMap(naverMap);
 
@@ -555,7 +431,7 @@ public class MainActivity extends AppCompatActivity
                 List<Node> children = new ArrayList<>(logoAnchor.getChildren());
                 for (Node n : children) {
                     Log.d(TAG, "find node list");
-                    if (n instanceof com.example.proj_graduation.BofLogo) {
+                    if (n instanceof BofLogo) {
                         Log.d(TAG, "removed");
                         logoAnchor.removeChild(n);
                         n.setParent(null);
@@ -594,7 +470,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if(gameSystem != null && logoAnchor != null && mAnchorNode[0] != null && mAnchorNode[1] != null && mAnchorNode[2] != null){
+        if( logoAnchor != null && mAnchorNode[0] != null && mAnchorNode[1] != null && mAnchorNode[2] != null ){
             return;
         }
 
@@ -612,17 +488,17 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        if (handRenderable == null) {
-            Log.d(TAG, "onUpdate: hand Renderable is null");
-            return;
-        }
+//        if (handRenderable == null) {
+//            Log.d(TAG, "onUpdate: hand Renderable is null");
+//            return;
+//        }
 
-        for (ModelRenderable m : musicNotes) {
-            if (m == null) {
-                Log.d(TAG, "onUpdate: musicNotes Renderable is null");
-                return;
-            }
-        }
+//        for (ModelRenderable m : musicNotes) {
+//            if (m == null) {
+//                Log.d(TAG, "onUpdate: musicNotes Renderable is null");
+//                return;
+//            }
+//        }
 
         for (ModelRenderable m : albumRenderable) {
             if (m == null) {
@@ -657,7 +533,7 @@ public class MainActivity extends AppCompatActivity
             createLogo();
         }
 
-        if(gameSystem == null) {
+      /*  if(gameSystem == null) {
             // 게임 시스템 생성
             //변경--이민영
             gameSystem = new GameSystem(this, arSceneView, musicUiclass, findViewById(R.id.score),findViewById(R.id.scoreText),findViewById(R.id.finalScore),lineImage01,lineImage02,tapButton01,
@@ -666,7 +542,7 @@ public class MainActivity extends AppCompatActivity
             musicUiclass.setGameSystem(gameSystem);
             Log.i("GameSystem create: ", "true");
         }
-
+        */
 
     }
 
@@ -752,15 +628,13 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        com.example.proj_graduation.BofLogo bofLogo = new com.example.proj_graduation.BofLogo(logoAnchor, bofLogoRenderable, arSceneView);
+        BofLogo bofLogo = new BofLogo(logoAnchor, bofLogoRenderable, arSceneView);
 
 
         bofLogo.setOnTapListener(new Node.OnTapListener() {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                 Intent intent = new Intent(getApplicationContext(), PopupActivity2.class);
-                String scoreString2 = gameSystem.finalScore + " 점";
-                intent.putExtra("Score", scoreString2);
                 startActivity(intent);
             }
         });
@@ -768,7 +642,7 @@ public class MainActivity extends AppCompatActivity
         Snackbar.make(mLayout, "로고 오브젝트 생성 (distance: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
     }
 
-    // 앨범 노드 생성~!
+    // 사진 오브젝트 노드 생성
     public boolean createNode(int i) {
 
         float dLatitude = (float) (markers[i].getLatitude() - mCurrentLocation.getLatitude()) * 110900f;
@@ -862,64 +736,19 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        AlbumNode albumNode = new AlbumNode(mAnchorNode[i], albumRenderable[i],
-                timerArray, musicNotes, musicUiclass.getMediaPlayer(i), arSceneView);
+        AlbumNode albumNode = new AlbumNode(mAnchorNode[i], albumRenderable[i], arSceneView);
 
-        com.example.proj_graduation.PointHand pointHand = new com.example.proj_graduation.PointHand(mAnchorNode[i], handRenderable, arSceneView);
+   //     PointHand pointHand = new PointHand(mAnchorNode[i], handRenderable, arSceneView);
 
-        music(albumNode,pointHand, i);
-
-        int index = albumNode.getIndex();
-        for(; albumNode.getTimer(index) < albumNode.getCurrentMediaPosition(); index++){
-            ;
-        }
-        albumNode.setIndex(index);
+//        int index = albumNode.getIndex();
+//        for(; albumNode.getTimer(index) < albumNode.getCurrentMediaPosition(); index++){
+//            ;
+//        }
+       // albumNode.setIndex(index);
 
         Snackbar.make(mLayout, "오브젝트 생성[" + i + "] (distance: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
 
         return true;
     }
 
-    public void music(AlbumNode albumNode, com.example.proj_graduation.PointHand pointHand, int i) {
-        Context c = this;
-
-        albumNode.setOnTapListener((v, event) -> {
-            // 디버깅용 터치하면 사라지게
-            albumNode.removeNode();
-            soundPool.play(effectSoundID, 1f, 1f, 0, 0, 1.2f);
-            call[i] = false;
-
-            /* gps를 이용한 거리
-            float dLatitude = (float) (markers[i].getLatitude() - mCurrentLocation.getLatitude()) * 110900f;
-            float dLongitude = (float) (markers[i].getLongitude() - mCurrentLocation.getLongitude()) * 88400f;
-            float distance = (float) Math.sqrt((dLongitude * dLongitude) + (dLatitude * dLatitude));
-            */
-
-            // AR자체의 world position을 이용한 거리
-            Vector3 vec = Vector3.subtract(albumNode.getWorldPosition(), arSceneView.getScene().getCamera().getWorldPosition());
-            float distance = (float) Math.sqrt(Vector3.dot(vec, vec));
-
-
-            // 터치한 오브젝트와의 거리가 20m이내 일때만 터치 가능
-            if (distance <= 20f) {
-                if (musicUi.getVisibility() == View.INVISIBLE || musicUi.getVisibility() == View.GONE) {
-                    musicUi.setVisibility(View.VISIBLE);
-                }
-
-                if (musicUiclass.isPlaying(i)) {
-                    musicUiclass.musicStop();
-                    albumNode.stopGame();
-                    Snackbar.make(mLayout, "music stop (거리: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
-                }
-                else {
-                    musicUiclass.musicStop();
-                    musicUiclass.setMediaPlayer(i);
-                    musicUiclass.musicPlay();
-                    albumNode.startGame();
-                    Snackbar.make(mLayout, "music start (거리: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-
-        });
-    }
 }

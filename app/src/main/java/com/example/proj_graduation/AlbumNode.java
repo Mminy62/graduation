@@ -24,27 +24,18 @@ public class AlbumNode extends Node {
     private MediaPlayer mediaPlayer;
     private ArSceneView arSceneView;
 
-    SoundPool soundPool;
-    int effectSoundID;
-    Context context;
-
-    AlbumNode(AnchorNode parent, ModelRenderable albumModel,
-              int[] timerArray, ModelRenderable[] musicNotes,
-              MediaPlayer mediaPlayer, ArSceneView arSceneView){
+    AlbumNode(AnchorNode parent, ModelRenderable albumModel, ArSceneView arSceneView){
         this.setRenderable(albumModel);
         //this.setRenderable(handModel);
 
-        this.setLocalScale(new Vector3(0.4f, 0.4f, 0.4f));
-        this.setLocalPosition(this.getUp().scaled(-2.5f)); // 스위치로 바꾸는 과정에서 이렇게함//-2.5f
+        this.setLocalScale(new Vector3(1f, 1f, 1f));
+        this.setLocalPosition(this.getUp().scaled(0.5f)); // 스위치로 바꾸는 과정에서 이렇게함//-2.5f
         /*
         this.setLocalScale(new Vector3(1f, 1f, 1f));
         this.setLocalPosition(this.getUp().scaled(-0.5f));
 */
         this.setParent(parent);
         this.parent = parent;
-        this.timerArray = timerArray;
-        this.musicNotes = musicNotes;
-        this.mediaPlayer = mediaPlayer;
         this.arSceneView = arSceneView;
 
         Vector3 cameraPos = arSceneView.getScene().getCamera().getWorldPosition();
@@ -64,7 +55,7 @@ public class AlbumNode extends Node {
 
         Vector3 cameraPos = arSceneView.getScene().getCamera().getWorldPosition();
 
-        // Animation hasn't been set up.
+      /*  // Animation hasn't been set up.
         if(mediaPlayer.isPlaying()) {
             time = mediaPlayer.getCurrentPosition(); // 밀리 세컨드로 받아옴
 
@@ -76,7 +67,7 @@ public class AlbumNode extends Node {
                 //MusicNote m = new MusicNote(parent, musicNotes[i], cameraPos);
                 index++;
             }
-        }
+        }*/
 
         Vector3 v = Vector3.subtract(cameraPos, this.getWorldPosition());
         float distance = (float) Math.sqrt(Vector3.dot(v, v));
@@ -102,17 +93,6 @@ public class AlbumNode extends Node {
         parent = null;
         Log.i("AlbumNode", "object is removed");
 
-    }
-    // 뮤직게임 시작
-    public void startGame(){
-        time = 0f;
-        index = 0;
-    }
-
-    // 뮤직게임 중지 (음표 오브젝트 생성x)
-    public void stopGame(){
-        time = 0f;
-        index = 0;
     }
 
     public void setIndex(int index){

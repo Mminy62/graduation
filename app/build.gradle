@@ -64,15 +64,30 @@ apply plugin: 'com.google.ar.sceneform.plugin'
 tasks.register("prepareKotlinBuildScriptModel")
 
 
-/* sceneform.asset('sampledata/music_note/greenote.obj', // 'Source Asset Path' specified during import.
+ sceneform.asset('sampledata/models/11.obj', // 'Source Asset Path' specified during import.
         'default',                            // 'Material Path' specified during import.
-        'sampledata/music_note/greennote.sfa',         // '.sfa Output Path' specified during import.
-        'src/main/res/raw/green')// '.sfb Output Path' specified during import.
+        'sampledata/models_sfa/11.sfa',         // '.sfa Output Path' specified during import.
+        'src/main/res/raw/ourbeloved_1')// '.sfb Output Path' specified during import.
 
-sceneform.asset('sampledata/music_note/musicalnote_bevel.obj', // 'Source Asset Path' specified during import.
+sceneform.asset('sampledata/models/22.obj', // 'Source Asset Path' specified during import.
         'default',                            // 'Material Path' specified during import.
-        'sampledata/music_note/musicalnote_bevel.sfa',         // '.sfa Output Path' specified during import.
-        'src/main/res/raw/musicalnote_bevel')*/
+        'sampledata/models_sfa/22.sfa',         // '.sfa Output Path' specified during import.
+        'src/main/res/raw/ourbeloved_2')
+
+sceneform.asset('sampledata/models/33.obj', // 'Source Asset Path' specified during import.
+        'default',                            // 'Material Path' specified during import.
+        'sampledata/models_sfa/33.sfa',         // '.sfa Output Path' specified during import.
+        'src/main/res/raw/ourbeloved_3')// '.sfb Output Path' specified during import.
+
+sceneform.asset('sampledata/models/44.obj', // 'Source Asset Path' specified during import.
+        'default',                            // 'Material Path' specified during import.
+        'sampledata/models_sfa/44.sfa',         // '.sfa Output Path' specified during import.
+        'src/main/res/raw/ourbeloved_4')
+
+sceneform.asset('sampledata/models/55.obj', // 'Source Asset Path' specified during import.
+        'default',                            // 'Material Path' specified during import.
+        'sampledata/models_sfa/55.sfa',         // '.sfa Output Path' specified during import.
+        'src/main/res/raw/highschool')
 
 
 

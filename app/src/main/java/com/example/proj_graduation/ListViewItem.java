@@ -2,6 +2,8 @@ package com.example.proj_graduation;
 
 import android.graphics.drawable.Drawable;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Optional;
 
 public class ListViewItem {
