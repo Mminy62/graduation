@@ -21,8 +21,8 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private AdapterView.OnItemClickListener itemClickListener = (adapterView, view, i, l) -> {
-        ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
-        lv.getTitle();
+//        ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
+//        lv.getTitle();
 
         Intent intent = new Intent(getApplicationContext(), SearchDetailActivity.class);
         startActivity(intent);
