@@ -46,6 +46,7 @@ class Drama {
 
             spot.setName(spotObject.getString("name"));
             spot.setDesc(spotObject.getString("desc"));
+            spot.setImageURL(spotObject.getString("image"));
             spot.setLongitude(spotObject.getDouble("longitude"));
             spot.setLatitude(spotObject.getDouble("latitude"));
 
@@ -58,12 +59,14 @@ class Drama {
 class Spot implements Parcelable {
     private String name;
     private String desc;
+    private String image;
     private double latitude;
     private double longitude;
 
     protected Spot(Parcel in) {
         name = in.readString();
         desc = in.readString();
+        image = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
     }
@@ -90,6 +93,9 @@ class Spot implements Parcelable {
     public String getDesc() { return desc; }
     public void setDesc(String value) { this.desc = value; }
 
+    public String getImageURL() { return image; }
+    public void setImageURL(String value) { this.image = value; }
+
     public double getLatitude() { return latitude; }
     public void setLatitude(double value) { this.latitude = value; }
 
@@ -100,6 +106,7 @@ class Spot implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(desc);
+        dest.writeString(image);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
     }

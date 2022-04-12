@@ -31,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
 
         Intent intent = new Intent(SearchActivity.this, SearchDetailActivity.class);
+        intent.putExtra("name", lv.getTitle());
         intent.putExtra("spots", lv.getSpots());
         startActivity(intent);
     };
