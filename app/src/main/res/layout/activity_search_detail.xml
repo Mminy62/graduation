@@ -10,7 +10,7 @@
         android:id="@+id/title_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="그 해 우리는"
+        android:text="title"
         android:textSize="14pt"
         android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
