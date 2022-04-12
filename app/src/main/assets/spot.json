@@ -10,36 +10,36 @@
             "name": "서울 중앙 고등학교",
             "desc": "연수와 웅의 고등학생 시절",
             "image": "https://static.hubzum.zumst.com/hubzum/2022/01/21/13/e57b813fe2dc4b2b8260aed99457aca5.png",
-            "latitude" : 127.234543,
-            "longitude": 36.43546
+            "latitude" : 37.584009,
+            "longitude": 126.986800
           },
           {
-            "name": "고인돌 공원",
+            "name": "오산 고인돌 공원",
             "desc": "소나기를 피하던 곳",
             "image": "https://static.hubzum.zumst.com/hubzum/2022/01/21/13/89292c00239141c08bdc4a99ff476a5e.png",
-            "latitude" : 127.234543,
-            "longitude": 36.43546
+            "latitude" : 37.173918,
+            "longitude": 127.048204
           },
           {
             "name": "수원화성",
             "desc": "피크닉 데이트",
             "image": "https://static.hubzum.zumst.com/hubzum/2022/01/21/13/a1315b6316f942639c9366c0ea1a7242.png",
-            "latitude" : 127.234543,
-            "longitude": 36.43546
+            "latitude" : 37.287944,
+            "longitude": 127.018969
           },
           {
             "name": "윤보선 길",
             "desc": "설343명란",
             "image": "https://static.hubzum.zumst.com/hubzum/2022/01/21/13/1fdb99efd876423396e6cf62fd37c362.png",
-            "latitude" : 127.234543,
-            "longitude": 36.43546
+            "latitude" : 37.577967,
+            "longitude": 126.983601
           },
           {
             "name": "궁평항",
             "desc": "여행갔던 곳",
             "image": "https://static.hubzum.zumst.com/hubzum/2022/01/21/13/f4b94f2f16e04c72908574be1c73e71c.png",
-            "latitude" : 127.234543,
-            "longitude": 36.43546
+            "latitude" : 37.115672,
+            "longitude": 126.680874
           }
         ]
     },
@@ -52,29 +52,29 @@
           "name": "단밤 1호점",
           "desc": "설65756명란",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAyMDAzMTdfMTA2/MDAxNTg0NDMwODA1NjM5.7PY2kRGPxnAvvqG35Gt15hIjiAZxRB23_9onbCU_iGog.hIyZO8vpOEwfzF4kQdpKCT2GU0nmFgk3iJzT85NfFNog.JPEG.hshyun0602/1.단밤1.jpg?type=w800",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.540034,
+          "longitude": 126.992123
         },
         {
           "name": "보광 고시원",
           "desc": "설명345란",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAyMDAzMTdfODUg/MDAxNTg0NDMwODA1NDU0.sp3gSA149hVh5A8b7vV8VD5vWh40mgb5ZP_ilTni5uQg.WZ8JREKMjrYphvjlYH8Onx5tLH37Ix3cximWqsqxa-cg.JPEG.hshyun0602/3._보광.jpg?type=w800",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.533405,
+          "longitude": 126.994909
         },
         {
           "name": "녹사평 육교",
           "desc": "설78명란",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAyMDAzMTNfMzEg/MDAxNTg0MDY4MzY2ODg2.CvGX1w4-VN5Q5CI-7mde56L2dIp25yigzitUO_lbeKIg.j-dBnuqjXkCl-JEJzPgvr99Y91P9jHaxAMDVpetl554g.JPEG.you1620/1584068365767.jpg?type=w800",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.534846,
+          "longitude": 126.987068
         },
         {
           "name": "수아네 집",
-          "desc": "설명657란",
+          "desc": "극 중 수아네 집.",
           "image": "https://dispatch.cdnser.be/cms-content/uploads/2020/02/02/cdef26b7-d22e-4c33-9009-6b305ee05cde.png",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.547498,
+          "longitude": 126.983852
         }
       ]
     },
@@ -87,29 +87,29 @@
           "name": "주문진 영진해변",
           "desc": "설명11212",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAxNzAxMDNfMTUx/MDAxNDgzNDEwNzcxNDY1.GmFhouITyMFet4mjLuoKq3v2AKjaw6rHJC1xYffv7uog.JJlN5P1XIg6nW98FRWHKAhMK2RGLdPbUwl_bxAiSPq4g.PNG.styleonme_/주문진.PNG?type=w2",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.879932,
+          "longitude": 128.834248
         },
         {
           "name": "운현궁 양관",
           "desc": "설명",
           "image": "https://t1.daumcdn.net/cfile/blog/2121A73658B53A021C",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.576092,
+          "longitude": 126.987055
         },
         {
           "name": "한미서점",
           "desc": "설명",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAxNzAxMDNfNiAg/MDAxNDgzNDEwNzc5MjM4.J-6C59zWT_4TrrHcyuN2tYtJt0Kk6Nk1bF6DnQFdMP0g.xr2w06poEnmbaj1fY1hZKmBYG46eSBGFV2CkAode-osg.PNG.styleonme_/인천한미.PNG?type=w2",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.472618,
+          "longitude": 126.636638
         },
         {
           "name": "용답역 2번출구",
           "desc": "설명",
           "image": "https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/2ycP/image/SojVGFeY-JprBsIc8M6GDBSw9Bc.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.562434,
+          "longitude": 127.049995
         }
       ]
     },
@@ -122,29 +122,29 @@
           "name": "양재 시민의 숲 역",
           "desc": "기훈과 공유가 딱지치기를 한 장소",
           "image": "https://image.ytn.co.kr/general/jpg/2021/1014/202110141538101680_img_07.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.470175,
+          "longitude": 127.038462
         },
         {
           "name": "팔도건어물",
           "desc": "상우의 어머니가 운영하는 생선가게",
           "image": "https://blog.kakaocdn.net/dn/bGQhYV/btrgXgMcnC6/kGKcwnkdpwmAFCE58cblg0/img.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.65566,
+          "longitude": 127.015251
         },
         {
           "name": "CU 쌍문우이천점",
           "desc": "오일남과 성기훈이 술을 마시던 장소",
           "image": "https://image.ytn.co.kr/general/jpg/2021/1014/202110141538101680_img_01.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.649755,
+          "longitude": 127.019998
         },
         {
-          "name": "공항 화물 청사역",
+          "name": "공항화물청사역",
           "desc": "승리자가 된 성기훈이 공유를 다시 마주친 곳",
           "image": "https://www.sceen-it.com/Service/sceenit/sceen/medium/76226.jpg/nos/.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.458979,
+          "longitude": 126.477415
         }
       ]
     },
@@ -157,36 +157,36 @@
           "name": "별마로 천문대",
           "desc": "세리가 패러글라이딩을 하던 곳",
           "image": "https://mblogthumb-phinf.pstatic.net/MjAyMDAyMTlfMjcz/MDAxNTgyMTA3MDMyOTY5.g1w-5IC7ooGsus55AdBX5ekuXVpU29HrkB24fByfYYMg.9Pi_LBHJKJdjjpBuh465ahZoYJ0fNroxn7gIMVgteTMg.JPEG.kmhjs114/chunmunde.jpg?type=w800",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.198408,
+          "longitude": 128.486894
         },
         {
           "name": "영종도 선녀바위",
           "desc": "조철강과 리정혁이 땅굴에서 나온 장소",
           "image": "https://wishbeen-seoul.s3.ap-northeast-2.amazonaws.com/post/1582866731373_sunyeo.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.438454,
+          "longitude": 126.378436
         },
         {
           "name": "한탄강 하늘다리",
           "desc": "세리와 정혁이 과거를 얘기하던 곳",
           "image": "http://img.etoday.co.kr/pto_db/2020/02/700/20200208230535_1422149_1200_606.jpg",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 38.084359,
+          "longitude": 127.217968
         },
         {
           "name": "BBQ 이대점",
           "desc": "북한 병사들이 서울에 내려와 바라보고 있던 곳",
           "image": "https://blog.kakaocdn.net/dn/kZhD7/btqBOsHYB6h/tRk4n1JYT3uzTRS0UFWGdk/img.png",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.558113,
+          "longitude": 126.943556
         },
         {
           "name": "엠코헤리츠",
           "desc": "세리와 정혁이 재회한 곳",
           "image": "https://thumb.wishbeen.com/pFDvKk33E9vmbrjIzsyAjA85bMU=/898x420/smart/filters:no_upscale()/wishbeen-seoul.s3.ap-northeast-2.amazonaws.com/post/1582868161057_%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA2020-02-28%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE2.35.40.png",
-          "latitude" : 127.234543,
-          "longitude": 36.43546
+          "latitude" : 37.362415,
+          "longitude": 127.105976
         }
       ]
     }
