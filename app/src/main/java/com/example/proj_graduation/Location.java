@@ -1,5 +1,7 @@
 package com.example.proj_graduation;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -53,11 +55,34 @@ class Drama {
     }
 }
 
-class Spot {
+class Spot implements Parcelable {
     private String name;
     private String desc;
     private double latitude;
     private double longitude;
+
+    protected Spot(Parcel in) {
+        name = in.readString();
+        desc = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+    }
+
+    public static final Creator<Spot> CREATOR = new Creator<Spot>() {
+        @Override
+        public Spot createFromParcel(Parcel in) {
+            return new Spot(in);
+        }
+
+        @Override
+        public Spot[] newArray(int size) {
+            return new Spot[size];
+        }
+    };
+
+    public Spot() {
+
+    }
 
     public String getName() { return name; }
     public void setName(String value) { this.name = value; }
@@ -70,4 +95,18 @@ class Spot {
 
     public double getLongitude() { return longitude; }
     public void setLongitude(double value) { this.longitude = value; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 }

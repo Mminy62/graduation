@@ -6,15 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.ArraySet;
-import android.util.Log;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,10 +28,10 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private final AdapterView.OnItemClickListener itemClickListener = (adapterView, view, i, l) -> {
-//        ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
-//        lv.getTitle();
+        ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
 
-        Intent intent = new Intent(getApplicationContext(), SearchDetailActivity.class);
+        Intent intent = new Intent(SearchActivity.this, SearchDetailActivity.class);
+        intent.putExtra("spots", lv.getSpots());
         startActivity(intent);
     };
 
@@ -62,8 +58,8 @@ public class SearchActivity extends AppCompatActivity {
             Drama drama = (Drama) dramaList.get(i);
             list.add(new ListViewItem(
                     drama.getImageURL(),
-                    drama.getName(),
-                    drama.getDesc())
+                    drama.getName(), drama.getDesc(),
+                    drama.getSpots())
             );
         }
 
@@ -131,8 +127,6 @@ public class SearchActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.i("@@@@", String.valueOf(dramaList));
 
         return dramaList;
     }

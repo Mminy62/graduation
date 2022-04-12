@@ -1,23 +1,18 @@
 package com.example.proj_graduation;
 
-import android.graphics.drawable.Drawable;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class ListViewItem {
+public class SpotListViewItem extends ListViewItem {
     private String imageURL;
     private String titleStr;
     private String descStr;
-    private Spot[] spotLst;
+    private Double longitude;
+    private Double latitude;
 
-    public ListViewItem(String image, String title, String desc, Spot[] spots) {
+    public SpotListViewItem(String image, String title, String desc, Double lon, Double lat) {
         imageURL = image;
         titleStr = title;
         descStr = desc;
-        spotLst = spots;
-    }
-
-    public ListViewItem() {
-
+        longitude = lon;
+        latitude = lat;
     }
 
     public void setImage(String url) {
@@ -29,17 +24,20 @@ public class ListViewItem {
     public void setDesc(String desc) {
         descStr = desc;
     }
+    public void setLatitude(Double lat) {
+        latitude = lat;
+    }
+    public void setLongitude(Double lon) {
+        longitude = lon;
+    }
 
     public String getImage() {
-        return this.imageURL;
+        return this.imageURL ;
     }
     public String getTitle() {
-        return this.titleStr;
+        return this.titleStr ;
     }
     public String getDesc() {
-        return this.descStr;
-    }
-    public Spot[] getSpots() {
-        return this.spotLst;
+        return this.descStr ;
     }
 }

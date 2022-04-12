@@ -95,4 +95,10 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
             listViewItemList.add(item);
         }
     }
+
+    public void addSpotItems(ArraySet<SpotListViewItem> items) {
+        for (ListViewItem item: items) {
+            listViewItemList.add(item);
+        }
+    }
 }
