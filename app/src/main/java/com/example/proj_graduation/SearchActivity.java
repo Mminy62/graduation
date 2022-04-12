@@ -58,12 +58,12 @@ public class SearchActivity extends AppCompatActivity {
         list = new ArraySet<ListViewItem>();
         List dramaList = jsonParsing(getJsonString());
 
-        for (int i=0 ; i<dramaList.size(); i++) {
-          Drama drama = (Drama) dramaList.get(i);
-          list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
-          drama.getName(),
-          drama.getDesc())
-          );
+        for (int i=0; i<dramaList.size(); i++){
+            Drama drama = (Drama) dramaList.get(i);
+            list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+                    drama.getName(),
+                    drama.getDesc())
+            );
         }
 
         adapter = new ListViewAdapter(); //(this, android.R.layout.simple_list_item_1, list);
