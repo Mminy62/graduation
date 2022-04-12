@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/textView2"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:textColor="#666666"
             android:layout_weight="1" />
     </LinearLayout>
