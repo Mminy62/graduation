@@ -20,6 +20,7 @@ public class Location {
 class Drama {
     private String name;
     private String desc;
+    private String poster;
     private Spot[] spots;
 
     public String getName() { return name; }
@@ -27,6 +28,9 @@ class Drama {
 
     public String getDesc() { return desc; }
     public void setDesc(String value) { this.desc = value; }
+
+    public String getImageURL() { return poster; }
+    public void setImageURL(String value) { this.poster = value; }
 
     public Spot[] getSpots() { return spots; }
     public void setSpots(JSONArray value) throws JSONException {
