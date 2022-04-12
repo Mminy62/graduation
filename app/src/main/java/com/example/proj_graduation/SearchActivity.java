@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.util.ArraySet;
+import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -13,6 +15,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     ArraySet<ListViewItem> list;
@@ -45,21 +56,15 @@ public class SearchActivity extends AppCompatActivity {
 
     private void configureList() {
         list = new ArraySet<ListViewItem>();
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ourbelovedsummer),
-                "그 해 우리는",
-                "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.squidgame),
-                "오징어 게임",
-                "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.weatherpeople),
-                "기상청 사람들",
-                "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.crashlandingonlove),
-                "사랑의 불시착",
-                "설명"));
-        list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.itaewonclass),
-                "이태원 클라스",
-                "설명"));
+        List dramaList = jsonParsing(getJsonString());
+
+        for (int i=0 ; i<dramaList.size(); i++) {
+          Drama drama = (Drama) dramaList.get(i);
+          list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+          drama.getName(),
+          drama.getDesc())
+          );
+        }
 
         adapter = new ListViewAdapter(); //(this, android.R.layout.simple_list_item_1, list);
         adapter.addItems(list);
@@ -75,5 +80,58 @@ public class SearchActivity extends AppCompatActivity {
                     SuggestionProvider.AUTHORITRY, SuggestionProvider.MODE);
             suggestions.saveRecentQuery(query, null);
         }
+    }
+
+    private String getJsonString()
+    {
+        String json = "";
+
+        try {
+            InputStream is = getAssets().open("spot.json");
+            int fileSize = is.available();
+
+            byte[] buffer = new byte[fileSize];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return json;
+    }
+
+    private List jsonParsing(String json)
+    {
+        List dramaList = new ArrayList();
+        try{
+            JSONObject jsonObject = new JSONObject(json);
+//            JSONArray dramaTitles = jsonObject.names();
+            JSONArray spotArray = jsonObject.getJSONArray("drama");
+//            for (int i=0 ; i < dramaTitles.length() ; i++) {
+//                JSONArray spotArray = jsonObject.getJSONArray(dramaTitles.getString(i));
+//
+                for (int j=0; j<spotArray.length(); j++)
+                {
+                    JSONObject spotObject = spotArray.getJSONObject(j);
+
+                    Drama drama = new Drama();
+
+                    drama.setName(spotObject.getString("name"));
+                    drama.setDesc(spotObject.getString("desc"));
+                    drama.setSpots(spotObject.getJSONArray("spots"));
+                    dramaList.add(drama);
+                }
+//            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("@@@@", String.valueOf(dramaList));
+
+        return dramaList;
     }
 }
