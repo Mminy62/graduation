@@ -28,40 +28,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d112e566-b64e-4a01-8923-d5acbdbcd9e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/loc_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampledata/album/nctcd1.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampledata/album/nctcd1.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampledata/album/nctcd1.sfa" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampledata/album/redvelvet.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/AlbumNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/AlbumNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/GameNote.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/GameSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/ListViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/ListViewAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/ListViewItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/ListViewItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/MusicNote.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/MusicUi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/PopupActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/PopupActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/PopupActivity2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/PopupActivity2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/assets/spot.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/assets/location.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/proj_graduation/SearchActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/armusicnote_illust.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/bof_logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_popup2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_popup2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/game_ui.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/howtoplay_ui.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/imin-yeong/.android/avd/Galaxy_Nexus_API_27.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/minseokim/.android/avd/Pixel_4a_API_32.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
