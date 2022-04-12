@@ -1,7 +1,6 @@
 package com.example.proj_graduation;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
         ListViewItem listViewItem = filteredItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageDrawable(listViewItem.getIcon());
+        Glide.with(context).load(listViewItem.getImage()).into(iconImageView);
         titleTextView.setText(listViewItem.getTitle());
         descTextView.setText(listViewItem.getDesc());
 
@@ -74,10 +75,10 @@ public class ListViewAdapter extends BaseAdapter implements Filterable {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String title, String desc) {
+    public void addItem(String imageURL, String title, String desc) {
         ListViewItem item = new ListViewItem();
 
-        item.setIcon(icon);
+        item.setImage(imageURL);
         item.setTitle(title);
         item.setDesc(desc);
 

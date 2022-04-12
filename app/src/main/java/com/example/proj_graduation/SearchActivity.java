@@ -31,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
     ListView listView;
 
 
-    private AdapterView.OnItemClickListener itemClickListener = (adapterView, view, i, l) -> {
+    private final AdapterView.OnItemClickListener itemClickListener = (adapterView, view, i, l) -> {
 //        ListViewItem lv = (ListViewItem) adapterView.getAdapter().getItem(i);
 //        lv.getTitle();
 
@@ -60,7 +60,8 @@ public class SearchActivity extends AppCompatActivity {
 
         for (int i=0; i<dramaList.size(); i++){
             Drama drama = (Drama) dramaList.get(i);
-            list.add(new ListViewItem(ContextCompat.getDrawable(this, R.drawable.ic_arrow),
+            list.add(new ListViewItem(
+                    drama.getImageURL(),
                     drama.getName(),
                     drama.getDesc())
             );
@@ -122,6 +123,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     drama.setName(spotObject.getString("name"));
                     drama.setDesc(spotObject.getString("desc"));
+                    drama.setImageURL(spotObject.getString("poster"));
                     drama.setSpots(spotObject.getJSONArray("spots"));
                     dramaList.add(drama);
                 }
