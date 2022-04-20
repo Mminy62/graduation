@@ -1,9 +1,12 @@
 package com.example.proj_graduation;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.hardware.Sensor;
@@ -11,7 +14,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -54,6 +59,9 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,9 +91,9 @@ public class MainActivity extends AppCompatActivity
     public Location mCurrentLocation;
 
     // 마커 관련
-    private Location[] markers = new Location[3];
     private Location destination;
-    private Location[] handLocation = new Location[2];
+    private final Location[] markers = new Location[3];
+    private final Location[] handLocation = new Location[2];
 
     // ar 관련
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
@@ -94,21 +102,21 @@ public class MainActivity extends AppCompatActivity
     // 아래는 ArCamera를 위한 변수 선언
     private ArFragment arFragment;
     private ArSceneView arSceneView;
-    private AnchorNode[] mAnchorNode = new AnchorNode[3];
     private AnchorNode destAnchor;
     private AnchorNode videoAnchor;
+    private final AnchorNode[] mAnchorNode = new AnchorNode[3];
 
     private ModelRenderable destRenderable;
     private ModelRenderable handRenderable; //hand model
 
-    private ModelRenderable[] nodeRenderable = new ModelRenderable[3]; // CourseNode Renderable Object
+    private final ModelRenderable[] nodeRenderable = new ModelRenderable[3]; // CourseNode Renderable Object
 
     // Device Orientation 관련
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Sensor mMagnetometer;
-    private float[] mLastAccelerometer = new float[3];
-    private float[] mLastMagnetometer = new float[3];
+    private final float[] mLastAccelerometer = new float[3];
+    private final float[] mLastMagnetometer = new float[3];
     private boolean mLastAccelerometerSet = false;
     private boolean mLastMagnetometerSet = false;
     private float mCurrentAzim = 0f; // 방위각
@@ -120,17 +128,15 @@ public class MainActivity extends AppCompatActivity
     private ImageView filter02;
     private ImageView filter03;
 
-    private Button filterBtn;
-    private Button cameraBtn;
-
- //   private PointHand pointHand;
+    //   private PointHand pointHand;
     public static com.example.proj_graduation.MainActivity ma;
 
     int filterID = 0;
     boolean isCapturing = false;
 
-    private boolean[] call = {true, true, true};
+    private final boolean[] call = {true, true, true};
 
+    @SuppressLint("InflateParams")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,16 +169,23 @@ public class MainActivity extends AppCompatActivity
             filter02.setVisibility(View.INVISIBLE);
             filter03.setVisibility(View.INVISIBLE);
 
-            filterBtn = findViewById(R.id.select_btn);
-            cameraBtn = findViewById(R.id.camera_btn);
+            Button filterBtn = findViewById(R.id.select_btn);
+            Button cameraBtn = findViewById(R.id.camera_btn);
 
             filterBtn.setOnClickListener(v -> {
                 filterID = (filterID + 1) % 3;
                 CharacterFilter(filterID);
             });
 
-            filterBtn.setOnClickListener(v -> {
+            cameraBtn.setOnClickListener(v -> {
+                cameraBtn.setVisibility(View.INVISIBLE);
+                filterBtn.setVisibility(View.INVISIBLE);
 
+                View content = getWindow().getDecorView().getRootView();
+                content.setDrawingCacheEnabled(true);
+                getScreen(content);
+                cameraBtn.setVisibility(View.VISIBLE);
+                filterBtn.setVisibility(View.VISIBLE);
             });
         }
 
@@ -334,6 +347,7 @@ public class MainActivity extends AppCompatActivity
                 );
     }
 
+    @SuppressLint("RtlHardcoded")
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d(TAG, "onMapReady");
@@ -533,7 +547,7 @@ public class MainActivity extends AppCompatActivity
             if (mAnchorNode[i] == null) {
                 //Log.d(TAG, "onUpdate: mAnchorNode["+ i +"] is null");
                 // 여기에다가 내 gps의 위도 경도, 마커들의 위도 경도를 이용하여 마커들의 Pose값 구해야함!
-                if (createNode(i) == false) continue;
+                if (!createNode(i)) continue;
             }
         }
 
@@ -629,12 +643,9 @@ public class MainActivity extends AppCompatActivity
         Destination destination = new Destination(destAnchor, destRenderable, arSceneView);
 
 
-        destination.setOnTapListener(new Node.OnTapListener() {
-            @Override
-            public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
-                startActivity(intent);
-            }
+        destination.setOnTapListener((hitTestResult, motionEvent) -> {
+            Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+            startActivity(intent);
         });
 
         Snackbar.make(mLayout, "로고 오브젝트 생성 (distance: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
@@ -762,5 +773,33 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
+    }
+
+    private void getScreen(View content)
+    {
+        Bitmap bitmap = getBitmapFromView(content);
+        String filename = "test.png";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try (FileOutputStream out = new FileOutputStream(dest)) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            // PNG is a lossless format, the compression factor (100) is ignored
+            out.flush();
+
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScanIntent.setData(Uri.fromFile(dest));
+            getApplicationContext().sendBroadcast(mediaScanIntent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Bitmap getBitmapFromView(View view)
+    {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 }

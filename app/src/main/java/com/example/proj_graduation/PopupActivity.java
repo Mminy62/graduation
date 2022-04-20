@@ -29,16 +29,14 @@ public class PopupActivity extends AppCompatActivity {
 
         finishBtn = (Button)findViewById(R.id.finishbtn);
 
-        finishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.proj_graduation.MainActivity.class);
-                intent.putExtra("capturing", true);
-                startActivityForResult(intent, 1);
-                finish();
-                //popup, info activity 까지 삭제하면 stack 거꾸로여서 안되는것같음.
+        finishBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("capturing", true);
+            startActivityForResult(intent, 1);
+            MainActivity.ma.finish();
+            finish();
+            //popup, info activity 까지 삭제하면 stack 거꾸로여서 안되는것같음.
 
-            }
         });
 
     }
