@@ -167,14 +167,6 @@ public class MainActivity extends AppCompatActivity
         logoLocation.setLatitude(37.299034);
         logoLocation.setLongitude(126.972738);
 
-   /*     int colorWhite = context.getResources().getColor(R.color.colorWhite);
-        String scoreString = scoreText.toString();
-        int length = scoreString.length();
-        SpannableStringBuilder spannable = new SpannableStringBuilder(scoreString);
-        spannable.setSpan(new AbsoluteSizeSpan(45),0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new AbsoluteSizeSpan(60),4, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new ForegroundColorSpan(colorWhite),3+1, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-
         // 레이아웃을 위에 겹쳐서 올리는 부분
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // 레이아웃 객체 생성

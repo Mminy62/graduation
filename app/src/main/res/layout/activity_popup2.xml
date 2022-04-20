@@ -23,8 +23,8 @@
             android:layout_height="119dp"
             android:bufferType="spannable"
             android:gravity="center"
-            android:text="장소에 도착했습니다!\n\n장소 이름에서 \n
-드라마의 한 장면을 재현 해 보세요! \n"
+            android:text="You have arrived at the location!\n\n
+Relive a scene from the drama \nusing the filter at the arrival location! \n"
             android:textColor="#000"
             app:scale_height="80"
             app:scale_textsize="15"
@@ -40,7 +40,7 @@
             android:background="@drawable/normal_btn_bg"
             android:fontFamily="@font/notosanskrregular"
             android:gravity="center"
-            android:text="안내 종료하기"
+            android:text="Select the filter"
             android:textColor="#fff"
             app:scale_height="44"
             app:scale_left="16"

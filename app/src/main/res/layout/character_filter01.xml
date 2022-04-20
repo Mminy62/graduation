@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/scalableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:scale_base_height="1800"
+        app:scale_base_width="1000"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/filter_img01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:scale_height="400"
+        app:scale_left="660"
+        app:scale_top="740"
+        app:scale_width="1000"
+        app:srcCompat="@drawable/filter01" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
