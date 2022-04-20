@@ -260,45 +260,6 @@ public class MainActivity extends AppCompatActivity
 
         arFragment.getArSceneView().getScene().setOnUpdateListener(this::onSceneUpdate);
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == 2) {
-//            if (resultCode != Activity.RESULT_OK) {
-//                return;
-//            }
-//
-//            //filter layout
-//            LayoutInflater inflater02 = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            LinearLayout ll2 = (LinearLayout) inflater02.inflate(R.layout.character_filter, null);
-//            ll2.setBackgroundColor(Color.parseColor("#00000000"));
-//            LinearLayout.LayoutParams paramll2 = new LinearLayout.LayoutParams(
-//                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-//            );
-//            addContentView(ll2, paramll2);
-//
-//            //filter 동작
-//            filter01 = findViewById(R.id.filter_img01);
-//            filter02 = findViewById(R.id.filter_img02);
-//            filter03 = findViewById(R.id.filter_img03);
-//
-//            filter01.setVisibility(View.INVISIBLE);
-//            filter02.setVisibility(View.INVISIBLE);
-//            filter03.setVisibility(View.INVISIBLE);
-//
-//            filterBtn = findViewById(R.id.select_btn);
-//
-//            filterBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    filterID = (filterID + 1) % 3;
-//                    CharacterFilter(filterID);
-//                }
-//            });
-//        }
-//    }
 
     @Override
     protected void onResume() {
@@ -816,20 +777,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void CharacterFilter(int filterID){
-        Log.i("@@@@ in function", String.valueOf(filterID));
         switch (filterID){
             case 0:
                 filter01.setVisibility(View.VISIBLE);
                 filter02.setVisibility(View.INVISIBLE);
                 filter03.setVisibility(View.INVISIBLE);
+                break;
             case 1:
                 filter01.setVisibility(View.INVISIBLE);
                 filter02.setVisibility(View.VISIBLE);
                 filter03.setVisibility(View.INVISIBLE);
+                break;
             case 2:
                 filter01.setVisibility(View.INVISIBLE);
                 filter02.setVisibility(View.INVISIBLE);
                 filter03.setVisibility(View.VISIBLE);
+                break;
         }
 
     }
