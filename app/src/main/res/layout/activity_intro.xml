@@ -111,7 +111,6 @@
             android:layout_gravity="center"/>
 
 
-
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
 </LinearLayout>

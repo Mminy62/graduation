@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity
     private ArSceneView arSceneView;
     private AnchorNode[] mAnchorNode = new AnchorNode[3];
     private AnchorNode logoAnchor;
+    private AnchorNode videoAnchor;
 
     private ModelRenderable bofLogoRenderable;
     private ModelRenderable handRenderable; //hand model
