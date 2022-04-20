@@ -32,8 +32,8 @@ public class PopupActivity2 extends AppCompatActivity {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                com.example.proj_graduation.MainActivity.ma.finish();
-                finish();
+                Intent intent = new Intent(getApplicationContext(), com.example.proj_graduation.MainActivity.class);
+                startActivityForResult(intent, 2);
                 //popup, info activity 까지 삭제하면 stack 거꾸로여서 안되는것같음.
 
             }

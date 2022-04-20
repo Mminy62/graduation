@@ -36,6 +36,9 @@
             app:scale_top="30"
             app:scale_width="300" />
 
+
+
+
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
 
