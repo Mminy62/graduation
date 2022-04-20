@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:id="@+id/scalableLayout"
@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:scale_base_height="1800"
-        app:scale_base_width="1000"
-        tools:ignore="MissingConstraints" >
+        app:scale_base_width="1000">
 
         <ImageView
             android:id="@+id/filter_img01"
@@ -28,10 +27,10 @@
             android:id="@+id/filter_img02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:scale_height="1800"
             app:scale_left="0"
             app:scale_top="0"
@@ -42,10 +41,10 @@
             android:id="@+id/filter_img03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:scale_height="1800"
             app:scale_left="150"
             app:scale_top="0"
@@ -57,13 +56,13 @@
             android:id="@+id/select_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="next"
             android:background="@drawable/musicnote_btn_bg"
+            android:text="next"
             android:textColor="#212121"
             android:textStyle="bold"
-            app:scale_textsize="50"
             app:scale_height="100"
             app:scale_left="50"
+            app:scale_textsize="50"
             app:scale_top="450"
             app:scale_width="200" />
 
@@ -74,12 +73,12 @@
             android:background="@drawable/round_button"
             android:textColor="#212121"
             android:textStyle="bold"
-            app:scale_textsize="50"
+            app:scale_height="150"
             app:scale_left="440"
+            app:scale_textsize="50"
             app:scale_top="1530"
-            app:scale_width="150"
-            app:scale_height="150"/>
+            app:scale_width="150" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
