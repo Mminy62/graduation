@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
     private AnchorNode logoAnchor;
     private AnchorNode videoAnchor;
 
-    private ModelRenderable bofLogoRenderable;
+    private ModelRenderable destLogoRenderable;
     private ModelRenderable handRenderable; //hand model
     private ModelRenderable[] musicNotes = new ModelRenderable[2];
 
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity
         markers[2].setLongitude(126.972528);
 
         // 로고 위치
-        logoLocation = new Location("Jng-ang highscool");
+        logoLocation = new Location("Jng-ang highschool");
         logoLocation.setLatitude(37.299034);
         logoLocation.setLongitude(126.972738);
 
@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity
 */
         ModelRenderable.builder()
                 .setSource(this, R.raw.highschool)
-                .build().thenAccept(renderable -> bofLogoRenderable = renderable)
+                .build().thenAccept(renderable -> destLogoRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 3 model", Toast.LENGTH_SHORT).show();
@@ -356,34 +356,20 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onMapReady");
 
         // 마커 세팅
-        Marker marker1 = new Marker();
-        marker1.setPosition(new LatLng(markers[0].getLatitude(), markers[0].getLongitude()));
-        marker1.setHeight(70);
-        marker1.setWidth(60);
-        marker1.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
-        marker1.setAnchor(new PointF(0.5f, 1));
-        marker1.setMap(naverMap);
-
-        Marker marker2 = new Marker();
-        marker2.setPosition(new LatLng(markers[1].getLatitude(), markers[1].getLongitude()));
-        marker2.setHeight(70);
-        marker2.setWidth(60);
-        marker2.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
-        marker2.setAnchor(new PointF(0.5f, 1));
-        marker2.setMap(naverMap);
-
-        Marker marker3 = new Marker();
-        marker3.setPosition(new LatLng(markers[2].getLatitude(), markers[2].getLongitude()));
-        marker3.setHeight(70);
-        marker3.setWidth(60);
-        marker3.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
-        marker3.setAnchor(new PointF(0.5f, 1));
-        marker3.setMap(naverMap);
+        for(int i=0; i<3; i++) {
+            Marker marker = new Marker();
+            marker.setPosition(new LatLng(markers[i].getLatitude(), markers[i].getLongitude()));
+            marker.setHeight(60);
+            marker.setWidth(60);
+            marker.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
+            marker.setAnchor(new PointF(0.5f, 1));
+            marker.setMap(naverMap);
+        }
 
         Marker logo = new Marker();
         logo.setPosition(new LatLng(logoLocation.getLatitude(), logoLocation.getLongitude()));
         logo.setHeight(60);
-        logo.setWidth(70);
+        logo.setWidth(60);
         logo.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
         logo.setAnchor(new PointF(0.5f, 0.5f));
         logo.setMap(naverMap);
@@ -523,8 +509,8 @@ public class MainActivity extends AppCompatActivity
                 ((ViewManager)popupLayout.getParent()).removeView(popupLayout);
         }
 
-        if (bofLogoRenderable == null) {
-            Log.d(TAG, "onUpdate: bof logo Renderable is null");
+        if (destLogoRenderable == null) {
+            Log.d(TAG, "onUpdate: dest logo Renderable is null");
             return;
         }
 
@@ -568,7 +554,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        // BOF 로고 오브젝트 생성
+        // 목적지 로고 오브젝트 생성
         if(logoAnchor == null){
             createLogo();
         }
@@ -668,7 +654,7 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        Destination destination = new Destination(logoAnchor, bofLogoRenderable, arSceneView);
+        Destination destination = new Destination(logoAnchor, destLogoRenderable, arSceneView);
 
 
         destination.setOnTapListener(new Node.OnTapListener() {
