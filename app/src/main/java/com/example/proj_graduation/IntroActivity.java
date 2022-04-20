@@ -26,11 +26,10 @@ public class IntroActivity extends AppCompatActivity {
         TextView bof_text = (TextView)findViewById(R.id.textView);
         int color = getResources().getColor(R.color.colorDefault);
 
-        SpannableStringBuilder spannable2 = new SpannableStringBuilder("AR로 즐기는\n드라마 촬영장소");
-        spannable2.setSpan(new StyleSpan(Typeface.BOLD),0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // AR
-        spannable2.setSpan(new StyleSpan(Typeface.NORMAL),3,7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable2.setSpan(new StyleSpan(Typeface.BOLD),8, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable2.setSpan(new ForegroundColorSpan(color),8, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableStringBuilder spannable2 = new SpannableStringBuilder("Filming Locations \nwith AR");
+        spannable2.setSpan(new ForegroundColorSpan(color),0, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // AR
+        spannable2.setSpan(new StyleSpan(Typeface.BOLD),24, 26, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         bof_text.setText(spannable2, TextView.BufferType.EDITABLE);
 
         intro_btn.setOnClickListener(new View.OnClickListener(){

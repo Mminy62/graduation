@@ -134,7 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosanskrregular"
-            android:text="내 위치를 찾고 있습니다…"
+            android:text="Waiting for GPS..."
             android:textColor="#000"
             android:gravity="center"
             app:scale_textsize="15"

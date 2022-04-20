@@ -21,13 +21,13 @@
             android:layout_height="wrap_content"
             android:bufferType="spannable"
             android:fontFamily="@font/notosanskrmedium"
-            android:text="AR로 즐기는\n드라마 촬영장소"
+            android:text="Filming Locations \nto enjoy with AR"
             android:textColor="#fff"
             app:scale_height="245"
             app:scale_left="50"
             app:scale_textsize="48"
             app:scale_top="50"
-            app:scale_width="320" />
+            app:scale_width="600" />
 
         <TextView
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             app:scale_width="300"
             app:scale_height="400"
             app:scale_top="300"
-            app:scale_left="50"
+            app:scale_left="40"
             />
         <ImageView
             android:id="@+id/poster2"
@@ -71,7 +71,7 @@
             app:scale_width="300"
             app:scale_height="400"
             app:scale_top="300"
-            app:scale_left="650"
+            app:scale_left="660"
             />
         <ImageView
             android:id="@+id/poster4"
@@ -80,8 +80,8 @@
             app:srcCompat="@drawable/itaewonclass"
             app:scale_width="300"
             app:scale_height="400"
-            app:scale_top="720"
-            app:scale_left="180"
+            app:scale_top="740"
+            app:scale_left="40"
             />
         <ImageView
             android:id="@+id/poster5"
@@ -90,16 +90,28 @@
             app:srcCompat="@drawable/weatherpeople"
             app:scale_width="300"
             app:scale_height="400"
-            app:scale_top="720"
-            app:scale_left="480"
+            app:scale_top="740"
+            app:scale_left="350"
             />
+
+        <ImageView
+            android:id="@+id/poster6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/mrsunshine"
+            app:scale_width="300"
+            app:scale_height="400"
+            app:scale_top="740"
+            app:scale_left="660"
+            />
+
 
         <Button
             android:id="@+id/intro_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/normal_btn_bg"
-            android:text="드라마 찾아보기"
+            android:text="Search Drama"
             android:fontFamily="@font/notosanskrregular"
             android:textAlignment="center"
             android:textColor="#FFFFFF"

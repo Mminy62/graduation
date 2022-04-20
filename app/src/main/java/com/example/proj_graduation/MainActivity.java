@@ -11,7 +11,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +21,7 @@ import android.view.View;
 import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,7 +52,6 @@ import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
-import com.ssomai.android.scalablelayout.ScalableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +101,7 @@ public class MainActivity extends AppCompatActivity
     private ModelRenderable handRenderable; //hand model
     private ModelRenderable[] musicNotes = new ModelRenderable[2];
 
-    private ModelRenderable[] albumRenderable = new ModelRenderable[3]; // album Object들
+    private ModelRenderable[] nodeRenderable = new ModelRenderable[3]; // CourseNode Renderable Object
 
     // Device Orientation 관련
     private SensorManager mSensorManager;
@@ -261,7 +256,7 @@ public class MainActivity extends AppCompatActivity
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.ourbeloved_1)
-                .build().thenAccept(renderable -> albumRenderable[0] = renderable)
+                .build().thenAccept(renderable -> nodeRenderable[0] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load orange note model", Toast.LENGTH_SHORT).show();
@@ -271,7 +266,7 @@ public class MainActivity extends AppCompatActivity
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.ourbeloved_2)
-                .build().thenAccept(renderable -> albumRenderable[1] = renderable)
+                .build().thenAccept(renderable -> nodeRenderable[1] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load red note model", Toast.LENGTH_SHORT).show();
@@ -281,7 +276,7 @@ public class MainActivity extends AppCompatActivity
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.ourbeloved_3)
-                .build().thenAccept(renderable -> albumRenderable[2] = renderable)
+                .build().thenAccept(renderable -> nodeRenderable[2] = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 1 model", Toast.LENGTH_SHORT).show();
@@ -432,7 +427,7 @@ public class MainActivity extends AppCompatActivity
                 List<Node> children = new ArrayList<>(logoAnchor.getChildren());
                 for (Node n : children) {
                     Log.d(TAG, "find node list");
-                    if (n instanceof BofLogo) {
+                    if (n instanceof Destination) {
                         Log.d(TAG, "removed");
                         logoAnchor.removeChild(n);
                         n.setParent(null);
@@ -456,7 +451,7 @@ public class MainActivity extends AppCompatActivity
                         List<Node> children = new ArrayList<>(mAnchorNode[i].getChildren());
                         for (Node n : children) {
                             Log.d(TAG, "find node list");
-                            if (n instanceof AlbumNode) {
+                            if (n instanceof CourseNode) {
                                 Log.d(TAG, "removed");
                                 mAnchorNode[i].removeChild(n);
                                 n.setParent(null);
@@ -501,7 +496,7 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        }
 
-        for (ModelRenderable m : albumRenderable) {
+        for (ModelRenderable m : nodeRenderable) {
             if (m == null) {
                 Log.d(TAG, "onUpdate: album Renderable is null");
                 return;
@@ -629,10 +624,10 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        BofLogo bofLogo = new BofLogo(logoAnchor, bofLogoRenderable, arSceneView);
+        Destination destination = new Destination(logoAnchor, bofLogoRenderable, arSceneView);
 
 
-        bofLogo.setOnTapListener(new Node.OnTapListener() {
+        destination.setOnTapListener(new Node.OnTapListener() {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
                 Intent intent = new Intent(getApplicationContext(), PopupActivity2.class);
@@ -737,7 +732,7 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        AlbumNode albumNode = new AlbumNode(mAnchorNode[i], albumRenderable[i], arSceneView);
+        CourseNode courseNode = new CourseNode(mAnchorNode[i], nodeRenderable[i], arSceneView);
 
    //     PointHand pointHand = new PointHand(mAnchorNode[i], handRenderable, arSceneView);
 
