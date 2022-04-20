@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView filter03;
 
     private Button filterBtn;
+    private Button cameraBtn;
 
  //   private PointHand pointHand;
     public static com.example.proj_graduation.MainActivity ma;
@@ -163,13 +164,15 @@ public class MainActivity extends AppCompatActivity
             filter03.setVisibility(View.INVISIBLE);
 
             filterBtn = findViewById(R.id.select_btn);
+            cameraBtn = findViewById(R.id.camera_btn);
 
-            filterBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    filterID = (filterID + 1) % 3;
-                    CharacterFilter(filterID);
-                }
+            filterBtn.setOnClickListener(v -> {
+                filterID = (filterID + 1) % 3;
+                CharacterFilter(filterID);
+            });
+
+            filterBtn.setOnClickListener(v -> {
+
             });
         }
 

@@ -36,63 +36,6 @@
             app:scale_height="200"
             android:adjustViewBounds="true"/>
 
-        <TextView
-            android:id="@+id/nowPlaying"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Now Playing..."
-            android:fontFamily="@font/notosanskrregular"
-            android:textAlignment="textStart"
-            android:textColor="#FF5D4D"
-            app:scale_height="70"
-            app:scale_top="130"
-            app:scale_textsize="30"
-            app:scale_width="300"
-            app:scale_left = "20"/>
-
-        <TextView
-            android:id="@+id/scoreText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="스코어 0 점 "
-            android:fontFamily="@font/notosanskrmedium"
-            android:textColor="#FF5D4D"
-            android:bufferType="spannable"
-            app:scale_height="110"
-            app:scale_top="140"
-            app:scale_left="650"
-            app:scale_textsize="40"
-            app:scale_width="350" />
-
-        <TextView
-            android:id="@+id/musicTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanskrmedium"
-            android:text="Title"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:textColor="#FFFFFF"
-            app:scale_textsize="35"
-            app:scale_top="170"
-            app:scale_left = "20"
-            app:scale_width="570"
-            app:scale_height="140" />
-
-        <ProgressBar
-            android:id="@+id/musicBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:progress="25"
-            android:progressBackgroundTint="#000000"
-            android:progressTint="#FF6B6B"
-            app:scale_top = "100"
-            app:scale_height="20"
-            app:scale_width="1014"
-            app:scale_left="-7"/>
-
         <ImageView
             android:id="@+id/play"
             android:layout_width="wrap_content"
