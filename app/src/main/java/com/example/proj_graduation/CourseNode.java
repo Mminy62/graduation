@@ -17,16 +17,10 @@ import java.util.Random;
 
 public class CourseNode extends Node {
     private AnchorNode parent;
-    private ModelRenderable[] musicNotes;
-    private int[] timerArray; // 밀리세컨드 단위
-    private float time = 0f;
-    private int index = 0; // timerArray의 index
-    private MediaPlayer mediaPlayer;
     private ArSceneView arSceneView;
 
     CourseNode(AnchorNode parent, ModelRenderable albumModel, ArSceneView arSceneView){
         this.setRenderable(albumModel);
-        //this.setRenderable(handModel);
 
         this.setLocalScale(new Vector3(1f, 1f, 1f));
         this.setLocalPosition(this.getUp().scaled(0.5f)); // 스위치로 바꾸는 과정에서 이렇게함//-2.5f
@@ -55,20 +49,6 @@ public class CourseNode extends Node {
 
         Vector3 cameraPos = arSceneView.getScene().getCamera().getWorldPosition();
 
-      /*  // Animation hasn't been set up.
-        if(mediaPlayer.isPlaying()) {
-            time = mediaPlayer.getCurrentPosition(); // 밀리 세컨드로 받아옴
-
-            // 특정 시간에 음표 생성 (아직 딜레이 적용x)
-            if (index < timerArray.length && time >= timerArray[index]) {
-                Random rand = new Random();
-                int i = rand.nextInt(musicNotes.length);
-
-                //MusicNote m = new MusicNote(parent, musicNotes[i], cameraPos);
-                index++;
-            }
-        }*/
-
         Vector3 v = Vector3.subtract(cameraPos, this.getWorldPosition());
         float distance = (float) Math.sqrt(Vector3.dot(v, v));
 
@@ -80,7 +60,7 @@ public class CourseNode extends Node {
             parent.getAnchor().detach();
             parent.setParent(null);
             parent = null;
-            Log.i("AlbumNode", "object is removed");
+            Log.i("CourseNode", "object is removed");
         }
     }
 
@@ -91,23 +71,7 @@ public class CourseNode extends Node {
         parent.getAnchor().detach();
         parent.setParent(null);
         parent = null;
-        Log.i("AlbumNode", "object is removed");
+        Log.i("CourseNode", "object is removed");
 
-    }
-
-    public void setIndex(int index){
-        this.index = index;
-    }
-
-    public int getIndex(){
-        return index;
-    }
-
-    public int getTimer(int i){
-        return timerArray[i];
-    }
-
-    public int getCurrentMediaPosition(){
-        return mediaPlayer.getCurrentPosition();
     }
 }

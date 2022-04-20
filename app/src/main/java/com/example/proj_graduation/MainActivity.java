@@ -1,7 +1,6 @@
 package com.example.proj_graduation;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity
 
     // 마커 관련
     private Location[] markers = new Location[3];
-    private Location logoLocation;
+    private Location destination;
     private Location[] handLocation = new Location[2];
 
     // ar 관련
@@ -98,12 +95,11 @@ public class MainActivity extends AppCompatActivity
     private ArFragment arFragment;
     private ArSceneView arSceneView;
     private AnchorNode[] mAnchorNode = new AnchorNode[3];
-    private AnchorNode logoAnchor;
+    private AnchorNode destAnchor;
     private AnchorNode videoAnchor;
 
-    private ModelRenderable destLogoRenderable;
+    private ModelRenderable destRenderable;
     private ModelRenderable handRenderable; //hand model
-    private ModelRenderable[] musicNotes = new ModelRenderable[2];
 
     private ModelRenderable[] nodeRenderable = new ModelRenderable[3]; // CourseNode Renderable Object
 
@@ -126,13 +122,8 @@ public class MainActivity extends AppCompatActivity
 
     private Button filterBtn;
 
-
-
  //   private PointHand pointHand;
     public static com.example.proj_graduation.MainActivity ma;
-
-    SoundPool soundPool;
-    int effectSoundID;
 
     int filterID = 0;
     boolean isCapturing = false;
@@ -182,11 +173,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
 
-        /*
-        //팝업창 관련
-        Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
-        startActivityForResult(intent, 1);
-*/
         // Device Orientation 관련
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -210,9 +196,9 @@ public class MainActivity extends AppCompatActivity
         markers[2].setLongitude(126.972528);
 
         // 로고 위치
-        logoLocation = new Location("Jng-ang highschool");
-        logoLocation.setLatitude(37.299034);
-        logoLocation.setLongitude(126.972738);
+        destination = new Location("Jng-ang highschool");
+        destination.setLatitude(37.299034);
+        destination.setLongitude(126.972738);
 
 
         // 레이아웃을 위에 겹쳐서 올리는 부분
@@ -229,7 +215,7 @@ public class MainActivity extends AppCompatActivity
 
 
         // '위치를 찾는 중' 팝업창 오버레이
-        popupLayout = (FrameLayout)inflater.inflate(R.layout.activity_popup, null);
+        popupLayout = (FrameLayout)inflater.inflate(R.layout.gps_loading, null);
         popupLayout.setBackgroundColor(Color.parseColor("#CC000000"));
         FrameLayout.LayoutParams popParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
@@ -280,12 +266,9 @@ public class MainActivity extends AppCompatActivity
         mSensorManager.unregisterListener(this, mAccelerometer);
         mSensorManager.unregisterListener(this, mMagnetometer);
 
-//        gameSystem.currentMediaPlayer.pause();
     }
 
-
     private void setUpModel() {
-
 
         ModelRenderable.builder()
                 .setSource(this, R.raw.hand)
@@ -327,8 +310,6 @@ public class MainActivity extends AppCompatActivity
                         }
                 );
 
-
-
      /*   ModelRenderable.builder()
                 .setSource(this, R.raw.ourbeloved_4)
                 .build().thenAccept(renderable -> albumRenderable[4] = renderable)
@@ -341,7 +322,7 @@ public class MainActivity extends AppCompatActivity
 */
         ModelRenderable.builder()
                 .setSource(this, R.raw.highschool)
-                .build().thenAccept(renderable -> destLogoRenderable = renderable)
+                .build().thenAccept(renderable -> destRenderable = renderable)
                 .exceptionally(
                         throwable -> {
                             Toast.makeText(this, "Unable to load albumRenderable 3 model", Toast.LENGTH_SHORT).show();
@@ -366,7 +347,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         Marker logo = new Marker();
-        logo.setPosition(new LatLng(logoLocation.getLatitude(), logoLocation.getLongitude()));
+        logo.setPosition(new LatLng(destination.getLatitude(), destination.getLongitude()));
         logo.setHeight(60);
         logo.setWidth(60);
         logo.setIcon(OverlayImage.fromResource(R.drawable.loc_logo));
@@ -448,24 +429,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void onSceneUpdate(FrameTime frameTime) {
-        // 로고 앵커가 사라졌을 시
-        if(logoAnchor != null) {
-            if (logoAnchor.getAnchor().getTrackingState() != TrackingState.TRACKING
+        // 도착 앵커가 사라졌을 시
+        if(destAnchor != null) {
+            if (destAnchor.getAnchor().getTrackingState() != TrackingState.TRACKING
                     && arSceneView.getArFrame().getCamera().getTrackingState() == TrackingState.TRACKING) {
                 // Detach the old anchor
-                List<Node> children = new ArrayList<>(logoAnchor.getChildren());
+                List<Node> children = new ArrayList<>(destAnchor.getChildren());
                 for (Node n : children) {
                     Log.d(TAG, "find node list");
                     if (n instanceof Destination) {
                         Log.d(TAG, "removed");
-                        logoAnchor.removeChild(n);
+                        destAnchor.removeChild(n);
                         n.setParent(null);
                     }
                 }
-                arSceneView.getScene().removeChild(logoAnchor);
-                logoAnchor.getAnchor().detach();
-                logoAnchor.setParent(null);
-                logoAnchor = null;
+                arSceneView.getScene().removeChild(destAnchor);
+                destAnchor.getAnchor().detach();
+                destAnchor.setParent(null);
+                destAnchor = null;
             }
         }
 
@@ -495,7 +476,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if( logoAnchor != null && mAnchorNode[0] != null && mAnchorNode[1] != null && mAnchorNode[2] != null ){
+        if( destAnchor != null && mAnchorNode[0] != null && mAnchorNode[1] != null && mAnchorNode[2] != null ){
             return;
         }
 
@@ -508,7 +489,7 @@ public class MainActivity extends AppCompatActivity
                 ((ViewManager)popupLayout.getParent()).removeView(popupLayout);
         }
 
-        if (destLogoRenderable == null) {
+        if (destRenderable == null) {
             Log.d(TAG, "onUpdate: dest logo Renderable is null");
             return;
         }
@@ -527,7 +508,7 @@ public class MainActivity extends AppCompatActivity
 
         for (ModelRenderable m : nodeRenderable) {
             if (m == null) {
-                Log.d(TAG, "onUpdate: album Renderable is null");
+                Log.d(TAG, "onUpdate: course Renderable is null");
                 return;
             }
         }
@@ -554,26 +535,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         // 목적지 로고 오브젝트 생성
-        if(logoAnchor == null){
+        if(destAnchor == null){
             createLogo();
         }
-
-      /*  if(gameSystem == null) {
-            // 게임 시스템 생성
-            //변경--이민영
-            gameSystem = new GameSystem(this, arSceneView, musicUiclass, findViewById(R.id.score),findViewById(R.id.scoreText),findViewById(R.id.finalScore),lineImage01,lineImage02,tapButton01,
-                    tapButton02,tapButton03,getTapButton01, getTapButton02, getTapButton03,background01,background02,background03);
-
-            musicUiclass.setGameSystem(gameSystem);
-            Log.i("GameSystem create: ", "true");
-        }
-        */
 
     }
 
     public void createLogo(){
-        float dLatitude = (float) (logoLocation.getLatitude() - mCurrentLocation.getLatitude()) * 110900f;
-        float dLongitude = (float) (logoLocation.getLongitude() - mCurrentLocation.getLongitude()) * 88400f;
+        float dLatitude = (float) (destination.getLatitude() - mCurrentLocation.getLatitude()) * 110900f;
+        float dLongitude = (float) (destination.getLongitude() - mCurrentLocation.getLongitude()) * 88400f;
 
        // 테스트 용도
 
@@ -638,8 +608,8 @@ public class MainActivity extends AppCompatActivity
         Pose pose = Pose.makeTranslation(position.x, position.y, position.z);
         Anchor anchor = arSceneView.getSession().createAnchor(pose);
 
-        logoAnchor = new AnchorNode(anchor);
-        logoAnchor.setParent(arSceneView.getScene());
+        destAnchor = new AnchorNode(anchor);
+        destAnchor.setParent(arSceneView.getScene());
 
         // 윗벡터를 구해서 보내주기
         Vector3 v = new Vector3(0f, 0f, 1f);
@@ -653,13 +623,13 @@ public class MainActivity extends AppCompatActivity
 
         Vector3 up = new Vector3(xAxis.x + yAxis.x + zAxis.x, xAxis.y + yAxis.y + zAxis.y, xAxis.z + yAxis.z + zAxis.z).normalized();
 
-        Destination destination = new Destination(logoAnchor, destLogoRenderable, arSceneView);
+        Destination destination = new Destination(destAnchor, destRenderable, arSceneView);
 
 
         destination.setOnTapListener(new Node.OnTapListener() {
             @Override
             public void onTap(HitTestResult hitTestResult, MotionEvent motionEvent) {
-                Intent intent = new Intent(getApplicationContext(), PopupActivity2.class);
+                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
                 startActivity(intent);
             }
         });
@@ -763,13 +733,7 @@ public class MainActivity extends AppCompatActivity
 
         CourseNode courseNode = new CourseNode(mAnchorNode[i], nodeRenderable[i], arSceneView);
 
-   //     PointHand pointHand = new PointHand(mAnchorNode[i], handRenderable, arSceneView);
-
-//        int index = albumNode.getIndex();
-//        for(; albumNode.getTimer(index) < albumNode.getCurrentMediaPosition(); index++){
-//            ;
-//        }
-       // albumNode.setIndex(index);
+   //   PointHand pointHand = new PointHand(mAnchorNode[i], handRenderable, arSceneView);
 
         Snackbar.make(mLayout, "오브젝트 생성[" + i + "] (distance: " + distance + "m)", Snackbar.LENGTH_SHORT).show();
 

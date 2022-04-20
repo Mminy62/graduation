@@ -110,7 +110,7 @@
             android:id="@+id/intro_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/normal_btn_bg"
+            android:background="@drawable/btn_bg02"
             android:text="Search Drama"
             android:fontFamily="@font/notosanskrregular"
             android:textAlignment="center"
