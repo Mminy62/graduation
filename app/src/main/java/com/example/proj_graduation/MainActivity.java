@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -223,7 +224,6 @@ public class MainActivity extends AppCompatActivity
                 View content = getWindow().getDecorView().getRootView();
                 content.setDrawingCacheEnabled(true);
                 getBitmapFromView(arSceneView);
-
 
                 cameraBtn.setVisibility(View.VISIBLE);
                 filterBtn.setVisibility(View.VISIBLE);
@@ -781,27 +781,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-//
-//    private void getScreen(View content)
-//    {
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-//        Date currentTime = new Date();
-//        String dateString = formatter.format(currentTime);
-//        File sd = Environment.getExternalStorageDirectory();
-//        File file = new File(sd, dateString + ".png");
-//
-//        try (FileOutputStream out = new FileOutputStream(file)) {
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-//            // PNG is a lossless format, the compression factor (100) is ignored
-//            out.flush();
-//
-//            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//            mediaScanIntent.setData(Uri.fromFile(file));
-//            getApplicationContext().sendBroadcast(mediaScanIntent);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private String generateFilename() {
         String date =
@@ -813,13 +792,13 @@ public class MainActivity extends AppCompatActivity
     private Bitmap overlayBitmap(Bitmap baseBmp, View filter) {
         filter.setDrawingCacheEnabled(true);
         Bitmap bitmap2 = Bitmap.createBitmap(filter.getWidth(), filter.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas filterCanvas = new Canvas(bitmap2);
+        filter.draw(filterCanvas);
 
         Bitmap resultBmp = Bitmap.createBitmap(baseBmp.getWidth(), baseBmp.getHeight(), baseBmp.getConfig());
-
         Canvas canvas = new Canvas(resultBmp);
-        canvas.drawBitmap(baseBmp, 0, 0, null);
-        canvas.drawBitmap(bitmap2, 0, 0, null);
-//        arSceneView.draw(canvas);
+        canvas.drawBitmap(baseBmp, new Matrix(), null);
+        canvas.drawBitmap(bitmap2, new Matrix(), null);
 
         return resultBmp;
     }
@@ -833,7 +812,18 @@ public class MainActivity extends AppCompatActivity
         PixelCopy.request(view, bitmap, (copyResult) -> {
             if (copyResult == PixelCopy.SUCCESS) {
                 try {
-                    saveBitmapToDisk(bitmap, filename);
+                    switch (filterID){
+                        case 0:
+                            saveBitmapToDisk(overlayBitmap(bitmap, filter01), filename);
+                            break;
+                        case 1:
+                            saveBitmapToDisk(overlayBitmap(bitmap, filter02), filename);
+                            break;
+                        case 2:
+                            saveBitmapToDisk(overlayBitmap(bitmap, filter03), filename);
+                            break;
+
+                    }
                 } catch (IOException e) {
                     Toast toast = Toast.makeText(MainActivity.this, e.toString(),
                             Toast.LENGTH_LONG);
@@ -845,6 +835,7 @@ public class MainActivity extends AppCompatActivity
                 snackbar.setAction("Open in Photos", v -> {
                     File file = new File(filename);
 
+                    // 사진 갤러리에서 보이도록 함
                     Uri photoURI = FileProvider.getUriForFile(MainActivity.this,
                             MainActivity.this.getPackageName() + ".ar.codelab.name.provider",
                             file);
