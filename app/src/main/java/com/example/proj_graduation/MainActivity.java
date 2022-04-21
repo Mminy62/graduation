@@ -17,10 +17,12 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
+import android.view.PixelCopy;
 import android.view.View;
 import android.view.ViewManager;
 import android.view.WindowManager;
@@ -33,6 +35,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -42,7 +45,6 @@ import com.google.ar.core.TrackingState;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.ArSceneView;
 import com.google.ar.sceneform.FrameTime;
-import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -59,10 +61,13 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.hardware.SensorManager.AXIS_X;
@@ -147,6 +152,40 @@ public class MainActivity extends AppCompatActivity
 
         ma = this;
 
+        // Device Orientation 관련
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        // 레이아웃 받아오기
+        mLayout = findViewById(R.id.layout_main);
+
+        // 첫번째 마커
+        markers[0] = new Location("point A"); //
+        markers[0].setLatitude(37.298543);
+        markers[0].setLongitude(126.972288);
+        // 두번째 마커
+        markers[1] = new Location("point B");
+        markers[1].setLatitude(37.298623);
+        markers[1].setLongitude(126.972376);
+
+        // 세번째 마커
+        markers[2] = new Location("point C");
+        markers[2].setLatitude(37.298810);
+        markers[2].setLongitude(126.972528);
+
+        // 로고 위치
+        destination = new Location("Jng-ang highschool");
+        destination.setLatitude(37.299034);
+        destination.setLongitude(126.972738);
+
+        // ar 관련
+        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arCamera);
+        arSceneView = arFragment.getArSceneView();
+        setUpModel();
+
+        arFragment.getArSceneView().getScene().setOnUpdateListener(this::onSceneUpdate);
+
         Intent intent = getIntent();
         isCapturing = intent.getBooleanExtra("capturing", false);
 
@@ -183,84 +222,52 @@ public class MainActivity extends AppCompatActivity
 
                 View content = getWindow().getDecorView().getRootView();
                 content.setDrawingCacheEnabled(true);
-                getScreen(content);
+                getBitmapFromView(arSceneView);
+
+
                 cameraBtn.setVisibility(View.VISIBLE);
                 filterBtn.setVisibility(View.VISIBLE);
             });
+        } else {
+
+            // 레이아웃을 위에 겹쳐서 올리는 부분
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            // 레이아웃 객체 생성
+            LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.navermap, null);
+            // 레이아웃 배경 투명도 주기
+            ll.setBackgroundColor(Color.parseColor("#00000000"));
+            // 레이아웃 위에 겹치기
+            LinearLayout.LayoutParams paramll = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            addContentView(ll, paramll);
+            ll.setVisibility(View.INVISIBLE);
+
+            // '위치를 찾는 중' 팝업창 오버레이
+            popupLayout = (FrameLayout) inflater.inflate(R.layout.gps_loading, null);
+            popupLayout.setBackgroundColor(Color.parseColor("#CC000000"));
+            FrameLayout.LayoutParams popParams = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
+            );
+            addContentView(popupLayout, popParams);
+
+
+            // 지도 객체 생성
+            FragmentManager fm = getSupportFragmentManager();
+            MapFragment mapFragment = (MapFragment) fm.findFragmentById(R.id.map);
+            if (mapFragment == null) {
+                mapFragment = MapFragment.newInstance();
+                fm.beginTransaction().add(R.id.map, mapFragment).commit();
+            }
+
+            // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
+            // onMapReady에서 NaverMap 객체를 받음
+            mapFragment.getMapAsync(this);
+
+            // 위치를 반환하는 구현체인 FusedLocationSource 생성
+            mLocationSource =
+                    new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
         }
-
-        // Device Orientation 관련
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
-        // 레이아웃 받아오기
-        mLayout = findViewById(R.id.layout_main);
-
-        // 첫번째 마커
-        markers[0] = new Location("point A"); //
-        markers[0].setLatitude(37.298543);
-        markers[0].setLongitude(126.972288);
-        // 두번째 마커
-        markers[1] = new Location("point B");
-        markers[1].setLatitude(37.298623);
-        markers[1].setLongitude(126.972376);
-
-        // 세번째 마커
-        markers[2] = new Location("point C");
-        markers[2].setLatitude(37.298810);
-        markers[2].setLongitude(126.972528);
-
-        // 로고 위치
-        destination = new Location("Jng-ang highschool");
-        destination.setLatitude(37.299034);
-        destination.setLongitude(126.972738);
-
-
-        // 레이아웃을 위에 겹쳐서 올리는 부분
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // 레이아웃 객체 생성
-        LinearLayout ll = (LinearLayout) inflater.inflate(R.layout.navermap, null);
-        // 레이아웃 배경 투명도 주기
-        ll.setBackgroundColor(Color.parseColor("#00000000"));
-        // 레이아웃 위에 겹치기
-        LinearLayout.LayoutParams paramll = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        addContentView(ll, paramll);
-
-
-        // '위치를 찾는 중' 팝업창 오버레이
-        popupLayout = (FrameLayout)inflater.inflate(R.layout.gps_loading, null);
-        popupLayout.setBackgroundColor(Color.parseColor("#CC000000"));
-        FrameLayout.LayoutParams popParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT
-        );
-        addContentView(popupLayout, popParams);
-
-
-        // 지도 객체 생성
-        FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment) fm.findFragmentById(R.id.map);
-        if (mapFragment == null) {
-            mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.map, mapFragment).commit();
-        }
-
-        // getMapAsync를 호출하여 비동기로 onMapReady 콜백 메서드 호출
-        // onMapReady에서 NaverMap 객체를 받음
-        mapFragment.getMapAsync(this);
-
-        // 위치를 반환하는 구현체인 FusedLocationSource 생성
-        mLocationSource =
-                new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
-
-        // ar 관련
-        arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arCamera);
-        arSceneView = arFragment.getArSceneView();
-        setUpModel();
-
-        arFragment.getArSceneView().getScene().setOnUpdateListener(this::onSceneUpdate);
     }
 
     @Override
@@ -774,32 +781,107 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+//
+//    private void getScreen(View content)
+//    {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+//        Date currentTime = new Date();
+//        String dateString = formatter.format(currentTime);
+//        File sd = Environment.getExternalStorageDirectory();
+//        File file = new File(sd, dateString + ".png");
+//
+//        try (FileOutputStream out = new FileOutputStream(file)) {
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+//            // PNG is a lossless format, the compression factor (100) is ignored
+//            out.flush();
+//
+//            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//            mediaScanIntent.setData(Uri.fromFile(file));
+//            getApplicationContext().sendBroadcast(mediaScanIntent);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    private void getScreen(View content)
-    {
-        Bitmap bitmap = getBitmapFromView(content);
-        String filename = "test.png";
-        File sd = Environment.getExternalStorageDirectory();
-        File dest = new File(sd, filename);
-
-        try (FileOutputStream out = new FileOutputStream(dest)) {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            // PNG is a lossless format, the compression factor (100) is ignored
-            out.flush();
-
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(Uri.fromFile(dest));
-            getApplicationContext().sendBroadcast(mediaScanIntent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String generateFilename() {
+        String date =
+                new SimpleDateFormat("yyyyMMddHHmmss", java.util.Locale.getDefault()).format(new Date());
+        return Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM) + File.separator + "Sceneform/" + date + "_screenshot.png";
     }
 
-    private Bitmap getBitmapFromView(View view)
-    {
+    private Bitmap overlayBitmap(Bitmap baseBmp, View filter) {
+        filter.setDrawingCacheEnabled(true);
+        Bitmap bitmap2 = Bitmap.createBitmap(filter.getWidth(), filter.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Bitmap resultBmp = Bitmap.createBitmap(baseBmp.getWidth(), baseBmp.getHeight(), baseBmp.getConfig());
+
+        Canvas canvas = new Canvas(resultBmp);
+        canvas.drawBitmap(baseBmp, 0, 0, null);
+        canvas.drawBitmap(bitmap2, 0, 0, null);
+//        arSceneView.draw(canvas);
+
+        return resultBmp;
+    }
+
+    private void getBitmapFromView(ArSceneView view){
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
+        String filename = generateFilename();
+        final HandlerThread handlerThread = new HandlerThread("PixelCopier");
+        handlerThread.start();
+
+        PixelCopy.request(view, bitmap, (copyResult) -> {
+            if (copyResult == PixelCopy.SUCCESS) {
+                try {
+                    saveBitmapToDisk(bitmap, filename);
+                } catch (IOException e) {
+                    Toast toast = Toast.makeText(MainActivity.this, e.toString(),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
+                        "Photo saved", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Open in Photos", v -> {
+                    File file = new File(filename);
+
+                    Uri photoURI = FileProvider.getUriForFile(MainActivity.this,
+                            MainActivity.this.getPackageName() + ".ar.codelab.name.provider",
+                            file);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, photoURI);
+                    intent.setDataAndType(photoURI, "image/*");
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+
+                });
+                snackbar.show();
+            } else {
+                Toast toast = Toast.makeText(MainActivity.this,
+                        "Failed to copyPixels: " + copyResult, Toast.LENGTH_LONG);
+                toast.show();
+            }
+            handlerThread.quitSafely();
+        }, new Handler(handlerThread.getLooper()));
+    }
+
+    private void saveBitmapToDisk(Bitmap bitmap, String filePath) throws IOException
+    {
+        File file = new File(filePath);
+        // 사용자의 갤러리에 arcapture 디렉토리 생성 및 Bitmap을 JPEG 형식으로 갤러리에 저장
+        if (!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
+        try (FileOutputStream outputStream = new FileOutputStream(file);
+             ByteArrayOutputStream outputData = new ByteArrayOutputStream()){
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputData);
+                outputData.writeTo(outputStream);
+                outputStream.flush();
+
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(Uri.fromFile(file));
+                getApplicationContext().sendBroadcast(mediaScanIntent);
+        } catch (IOException ex) {
+            throw new IOException("Failed to save bitmap to disk", ex);
+        }
     }
 }
