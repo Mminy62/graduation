@@ -68,7 +68,7 @@ apply plugin: 'com.google.ar.sceneform.plugin'
 tasks.register("prepareKotlinBuildScriptModel")
 
 
-/* sceneform.asset('sampledata/models/11.obj', // 'Source Asset Path' specified during import.
+ sceneform.asset('sampledata/models/11.obj', // 'Source Asset Path' specified during import.
         'default',                            // 'Material Path' specified during import.
         'sampledata/models_sfa/11.sfa',         // '.sfa Output Path' specified during import.
         'src/main/res/raw/ourbeloved_1')// '.sfb Output Path' specified during import.
@@ -93,6 +93,7 @@ sceneform.asset('sampledata/models/55.obj', // 'Source Asset Path' specified dur
         'sampledata/models_sfa/55.sfa',         // '.sfa Output Path' specified during import.
         'src/main/res/raw/highschool')
 
+/*
 sceneform.asset('sampledata/models/BlueBlock.fbx', // 'Source Asset Path' specified during import.
         'default',                            // 'Material Path' specified during import.
         'sampledata/models/BlueBlock.sfa',         // '.sfa Output Path' specified during import.

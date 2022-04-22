@@ -163,22 +163,22 @@ public class MainActivity extends AppCompatActivity
 
         // 첫번째 마커
         markers[0] = new Location("point A"); //
-        markers[0].setLatitude(37.298543);
-        markers[0].setLongitude(126.972288);
+        markers[0].setLatitude(37.29388);
+        markers[0].setLongitude(126.975678);
         // 두번째 마커
         markers[1] = new Location("point B");
-        markers[1].setLatitude(37.298623);
-        markers[1].setLongitude(126.972376);
+        markers[1].setLatitude(37.294073);
+        markers[1].setLongitude(126.975709);
 
         // 세번째 마커
         markers[2] = new Location("point C");
-        markers[2].setLatitude(37.298810);
-        markers[2].setLongitude(126.972528);
+        markers[2].setLatitude(37.294287);
+        markers[2].setLongitude(126.975741);
 
         // 로고 위치
         destination = new Location("Jng-ang highschool");
-        destination.setLatitude(37.299034);
-        destination.setLongitude(126.972738);
+        destination.setLatitude(37.29451);
+        destination.setLongitude(126.975773);
 
         // ar 관련
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.arCamera);
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
             );
             addContentView(ll, paramll);
-            ll.setVisibility(View.INVISIBLE);
+            //ll.setVisibility(View.INVISIBLE);
 
             // '위치를 찾는 중' 팝업창 오버레이
             popupLayout = (FrameLayout) inflater.inflate(R.layout.gps_loading, null);
