@@ -25,6 +25,7 @@
             android:text="New Text"
             android:id="@+id/textView1"
             android:textSize="24dp"
+            android:fontFamily="@font/sourcesansproregular"
             android:textColor="#ffffff"
             android:gravity="center_vertical"
             android:layout_weight="2" />
@@ -36,6 +37,7 @@
             android:id="@+id/textView2"
             android:textSize="14dp"
             android:textColor="#aaaaaa"
+            android:fontFamily="@font/sourcesansproregular"
             android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

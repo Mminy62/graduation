@@ -843,7 +843,6 @@ public class MainActivity extends AppCompatActivity
                     intent.setDataAndType(photoURI, "image/*");
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     startActivity(intent);
-
                 });
                 snackbar.show();
             } else {

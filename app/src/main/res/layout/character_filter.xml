@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg01"
             android:text="next"
+            android:fontFamily="@font/sourcesansproregular"
             android:textColor="#212121"
             android:textStyle="bold"
             app:scale_height="100"

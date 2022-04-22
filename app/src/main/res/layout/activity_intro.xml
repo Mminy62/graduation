@@ -20,13 +20,13 @@
             android:layout_width="234dp"
             android:layout_height="wrap_content"
             android:bufferType="spannable"
-            android:fontFamily="@font/notosanskrmedium"
+            android:fontFamily="@font/sourcesansproregular"
             android:text="Filming Locations \nwith AR"
             android:textColor="#fff"
             app:scale_height="245"
             app:scale_left="50"
-            app:scale_textsize="48"
-            app:scale_top="60"
+            app:scale_textsize="60"
+            app:scale_top="80"
             app:scale_width="600" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg02"
             android:text="Search Drama"
-            android:fontFamily="@font/notosanskrregular"
+            android:fontFamily="@font/sourcesansproregular"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
