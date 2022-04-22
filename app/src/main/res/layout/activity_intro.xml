@@ -26,7 +26,7 @@
             app:scale_height="245"
             app:scale_left="50"
             app:scale_textsize="48"
-            app:scale_top="70"
+            app:scale_top="60"
             app:scale_width="600" />
 
         <TextView
